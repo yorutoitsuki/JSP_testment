@@ -92,7 +92,7 @@ join ( 	select sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1,
 		group by sclass)
 using (sclass);
 
-
+delete from examtbl_3 where sno = 09;
 
 
 

@@ -26,22 +26,22 @@
 			</tr>
 			<tr>
 				<th>국어</th>
-				<td><input type="text" maxlength="20" size="20" name="sname"></td>
+				<td><input type="text" maxlength="20" size="20" name="kor">성적범위(0~100)</td>
 			</tr>
 			<tr>
 				<th>영어</th>
-				<td><input type="text" maxlength="8" size="8" name="birth">(예)20191011</td>
+				<td><input type="text" maxlength="8" size="8" name="eng">성적범위(0~100)</td>
 			</tr>
 			<tr>
 				<th>수학</th>
 				<td>
-					<input type="text" maxlength="3" size="3" name="math">
+					<input type="text" maxlength="3" size="3" name="math">성적범위(0~100)
 				</td>
 			</tr>
 			<tr>
 				<th colspan="2">
-					<button type="button" onclick="check();">학생등록</button>
-					<button type="reset">다시쓰기</button>
+					<button type="button" onclick="checkScore();">성적등록</button>
+					<button type="button" onclick="location.href = 'selectStudent.jsp'">조회</button>
 				</th>
 			</tr>
 		</table>
