@@ -13,12 +13,12 @@
 </head>
 <body>
 	<header>
-		<h2>고교성적관리프로그램</h2>
+		<h1>고교성적관리프로그램</h1>
 	</header>
 	<nav>
 		<a href="insertStudent.jsp">학생등록</a>
 		<a href="insertScore.jsp">성적등록</a>
-		<a href="selectScore.jsp">성적조회</a>
+		<a href="selectStudent.jsp">성적조회</a>
 		<a href="selectAvg.jsp">반평균</a>
 		<a href="index.jsp">홈으로</a>
 	</nav>

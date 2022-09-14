@@ -14,6 +14,9 @@ create table examtbl_1(
 select * from examtbl_1;
 delete from examtbl_1;
 
+select syear||'_'||sclass||'_'||sno, sname, gender
+from examtbl_1;
+
 insert into examtbl_1 values('1','01','01','김학생','20020101','F','010','1234','1001');
 insert into examtbl_1 values('1','01','02','이학생','20020201','M','010','1234','1002');
 insert into examtbl_1 values('1','01','03','박학생','20020301','M','010','1234','1003');
@@ -56,9 +59,33 @@ insert into examtbl_3 values('1', '03', '02', 90, 80, 70);
 insert into examtbl_3 values('1', '03', '03', 70, 70, 70);
 
 
+select syear||'_'||sclass||'_'||sno, sname, gender
+from examtbl_1;
 
+select syear||'_'||sclass||'_'||sno, sname, gender,
+		nvl(kor,-1),nvl(eng,-1), nvl(math,-1),
+		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)),
+		round((nvl(kor,-1)+nvl(eng,-1)+nvl(math,-1))/3,1)
+from examtbl_1 join EXAMTBL_3
+using(syear, sclass, sno);
 
+select sum(nvl(kor,0)),sum(nvl(eng,0)),sum(nvl(math,0)),
+round(avg(nvl(kor,0)),1),round(avg(nvl(eng,0)),1),round(avg(nvl(math,0)),1)
+from examtbl_3;
 
+select * from examtbl_1;
+select * from examtbl_2;
+select * from examtbl_3;
+
+select syear, sclass, tname, kor, eng, math
+from examtbl_2 join EXAMTBL_3
+using (syear, sclass)
+
+select syear, sclass, tname,
+from (	select syear, sclass, tname, kor, eng, math
+		from examtbl_2 join EXAMTBL_3
+		using (syear, sclass))
+group by sclass
 
 
 
