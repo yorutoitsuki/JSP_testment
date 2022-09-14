@@ -9,7 +9,6 @@
 <%@ page import = "java.sql.*" %>
 
 <%
-	//post 방식의 한글 깨짐 방지를 위해(get 방식은 안해도 됨)
 	request.setCharacterEncoding("UTF-8");
 
 	//1. 오라클 드라이버 로딩 
