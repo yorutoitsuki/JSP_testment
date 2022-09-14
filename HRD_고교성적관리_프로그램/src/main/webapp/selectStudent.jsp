@@ -58,6 +58,10 @@
 					gender = "남";
 					break;
 				}
+				String avg = rs.getString(8);
+				if(avg.equals("0")){
+					avg = "";
+				}
 			%>
 			<tr>
 				<td><%=rs.getString(1)%></td>
@@ -67,7 +71,7 @@
 				<td><%=eng%></td>
 				<td><%=math%></td>
 				<td><%=rs.getString(7)%></td>
-				<td><%=rs.getString(8)%></td>
+				<td><%=avg%></td>
 			</tr>
 			<%
 			}

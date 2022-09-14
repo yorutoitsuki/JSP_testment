@@ -65,7 +65,7 @@ from examtbl_1;
 select syear||'_'||sclass||'_'||sno, sname, gender,
 		nvl(kor,-1),nvl(eng,-1), nvl(math,-1),
 		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)),
-		round((nvl(kor,-1)+nvl(eng,-1)+nvl(math,-1))/3,1)
+		round((nvl(kor,0)+nvl(eng,0)+nvl(math,0))/3,1)
 from examtbl_1 join EXAMTBL_3
 using(syear, sclass, sno);
 
@@ -77,15 +77,20 @@ select * from examtbl_1;
 select * from examtbl_2;
 select * from examtbl_3;
 
-select syear, sclass, tname, kor, eng, math
-from examtbl_2 join EXAMTBL_3
-using (syear, sclass)
+select sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, 
+		round(avg(kor),1) as k2 ,round(avg(eng),1) as e2 ,round(avg(math),1) as m2
+from examtbl_3
+group by sclass
 
 select syear, sclass, tname,
-from (	select syear, sclass, tname, kor, eng, math
-		from examtbl_2 join EXAMTBL_3
-		using (syear, sclass))
-group by sclass
+		k1, e1,  m1, 
+		 k2 , e2 , m2
+from EXAMTBL_2
+join ( 	select sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, 
+		round(avg(kor),1) as k2 ,round(avg(eng),1) as e2 ,round(avg(math),1) as m2
+		from examtbl_3
+		group by sclass)
+using (sclass);
 
 
 
