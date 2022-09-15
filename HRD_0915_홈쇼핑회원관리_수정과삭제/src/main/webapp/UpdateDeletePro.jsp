@@ -12,7 +12,7 @@
 			</script>
 		<%
 	}
-	else if (request.getParameter("selecter").equals("delete")){
+	else if (button.equals("delete")){
 		try{
 			sql  = "delete from MEMBER_TBL_02";
 			sql += " where custno = ?";
@@ -45,7 +45,7 @@
 			}
 		}
 	}
-	else if(request.getParameter("selecter").equals("update")){
+	else if(button.equals("update")){
 		try{
 			sql  = "update MEMBER_TBL_02";
 			sql += " set custname = ?,";

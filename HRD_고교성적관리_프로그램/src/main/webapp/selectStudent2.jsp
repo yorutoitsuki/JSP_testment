@@ -8,24 +8,14 @@
 <body>
 	<%@include file="header.jsp"%>
 	<%
-	sql  = " select 	a.syear||'_'||a.sclass||'_'||a.sno as \"학년반번호\",sname, gender,";
-	sql += "		nvl(kor,-1) as \"kor\", nvl(eng,-1) as \"eng\", nvl(math,-1) as \"math\",";
-	sql += "		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)) as \"total\",";
-	sql += "		round((nvl(kor,0)+nvl(eng,0)+nvl(math,0))/3,1) as \"avg\",";
-	sql += "		sum(nvl(kor,0)) over() as \"korT\", sum(nvl(eng,0)) over() as \"engT\", sum(nvl(math,0)) over() as \"mathT\" ,";
-	sql += "		round(avg(kor) over(),1) as \"korA\" , round(avg(eng) over(),1) as \"engA\" , round(avg(math) over(),1) as \"mathA\"";
-	sql += " from examtbl_1 a left outer join EXAMTBL_3 b";
-	sql += " on a.syear = b.syear";
-	sql += " and a.sclass = b.sclass and a.sno = b.sno";
-	
-	sql  = " select a.syear||'_'||a.sclass||'_'||a.sno, sname, gender, ";
+	sql  = " select syear||'_'||sclass||'_'||sno, nvl(sname,'-1'), nvl(gender,'-1'),";
 	sql += "		nvl(kor,-1),nvl(eng,-1), nvl(math,-1),";
 	sql += "		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)),";
 	sql += "		round((nvl(kor,0)+nvl(eng,0)+nvl(math,0))/3,1)";
-	sql += " from examtbl_1 a left outer join EXAMTBL_3 b";
-	sql += " on a.syear = b.syear";
-	sql += " and a.sclass = b.sclass";
-	sql += " and a.sno = b.sno";
+	sql += " from examtbl_1 a full outer join EXAMTBL_3 b";
+	sql += " using (syear, sclass, sno)";
+	
+	
 	rs = stmt.executeQuery(sql);
 	%>
 
@@ -44,6 +34,24 @@
 			</tr>
 			<%
 			while (rs.next()) {
+				String sname = rs.getString(2);
+				if(sname.equals("-1")) {
+					sname = "";
+				}
+				
+				String gender = "";
+				switch(rs.getString(3)){
+				case"F":
+					gender = "여";
+					break;
+				case"M":
+					gender = "남";
+					break;
+				case"-1":
+					gender = "";
+					break;
+				}
+				
 				String kor = rs.getString(4);
 				if(kor.equals("-1")){
 					kor = "";
@@ -61,15 +69,7 @@
 				}
 				
 				
-				String gender = "";
-				switch(rs.getString(3)){
-				case"F":
-					gender = "여";
-					break;
-				case"M":
-					gender = "남";
-					break;
-				}
+				
 				String avg = rs.getString(8);
 				if(avg.equals("0")){
 					avg = "";
@@ -84,7 +84,7 @@
 			<tr>
 				<%-- <td><a href="updateStudent.jsp?pk=<%=rs.getString(1)%>"><%=rs.getString(1)%></a></td> --%>
 				<td><%=rs.getString(1)%></td>
-				<td><%=rs.getString(2)%></td>
+				<td><%=sname%></td>
 				<td><%=gender%></td>
 				<td><%=kor%></td>
 				<td><%=eng%></td>

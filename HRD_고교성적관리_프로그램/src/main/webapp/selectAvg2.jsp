@@ -8,13 +8,13 @@
 <body>
 	<%@include file="header.jsp"%>
 	<%
-	sql  = " select b.syear, b.sclass, nvl(tname,'미배치'), ";
-	sql += "		k1, e1,  m1, k2 , e2 , m2 ";
-	sql += " from EXAMTBL_2 a";
-	sql += " right outer join ( 	select syear, sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, ";
-	sql += " 		round(avg(kor),1) as k2 ,round(avg(eng),1) as e2 ,round(avg(math),1) as m2";
-	sql += " 		from examtbl_3 group by (sclass,syear)) b";
-	sql += " on a.sclass = b.sclass";
+	sql  = " select syear, sclass, nvl(tname,'미배치'), ";
+	sql += "		k1, e1,  m1, k2 , e2 , m2";
+	sql += " from EXAMTBL_2";
+	sql += " full outer join ( 	select syear, sclass, nvl(sum(kor),-1) as k1, nvl(sum(eng),-1) as e1, nvl(sum(math),-1) as m1,  ";
+	sql += " 		round(avg(nvl(kor,0)),1) as k2 ,round(avg(nvl(eng,0)),1) as e2 ,round(avg(nvl(math,0)),1) as m2";
+	sql += " 		from examtbl_3 full outer join EXAMTBL_1 using(syear, sclass) group by (sclass,syear))";
+	sql += " using(syear, sclass)";
 	rs = stmt.executeQuery(sql);
 	%>
 
@@ -38,14 +38,29 @@
 				if(tname.equals("미배치")){
 					tname = "";
 				}
+				
+				String k1 = rs.getString(4);
+				if(k1.equals("-1")){
+					k1 = "";
+				}
+				
+				String e1 = rs.getString(5);
+				if(e1.equals("-1")){
+					e1 = "";
+				}
+				
+				String m1 = rs.getString(6);
+				if(m1.equals("-1")){
+					m1 = "";
+				}
 			%>
 			<tr>
 				<td><%=rs.getString(1)%></td>
 				<td><%=rs.getString(2)%></td>
 				<td><%=tname%></td>
-				<td><%=rs.getString(4)%></td>
-				<td><%=rs.getString(5)%></td>
-				<td><%=rs.getString(6)%></td>
+				<td><%=k1%></td>
+				<td><%=e1%></td>
+				<td><%=m1%></td>
 				<td><%=rs.getString(7)%></td>
 				<td><%=rs.getString(8)%></td>
 				<td><%=rs.getString(9)%></td>

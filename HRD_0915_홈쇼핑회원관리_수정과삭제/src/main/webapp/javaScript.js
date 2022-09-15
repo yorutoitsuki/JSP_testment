@@ -102,12 +102,14 @@ function check2(btnId) {
 		alert("도시코드가 없습니다");
 		return f.custno.focus();
 	}
+	
 	if(btnId == 'delete'){
 		f.selecter.value = 'delete';
 	}
 	else if(btnId == 'update'){
 		f.selecter.value = 'update';
 	}
+	
 	f.action = 'UpdateDeletePro.jsp';
 	f.submit();
 	return true;

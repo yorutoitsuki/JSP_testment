@@ -26,11 +26,11 @@
 			</tr>
 			<tr>
 				<th>국어</th>
-				<td><input type="text" maxlength="20" size="20" name="kor">성적범위(0~100)</td>
+				<td><input type="text" maxlength="3" size="3" name="kor">성적범위(0~100)</td>
 			</tr>
 			<tr>
 				<th>영어</th>
-				<td><input type="text" maxlength="8" size="8" name="eng">성적범위(0~100)</td>
+				<td><input type="text" maxlength="3" size="3" name="eng">성적범위(0~100)</td>
 			</tr>
 			<tr>
 				<th>수학</th>
