@@ -46,7 +46,7 @@
 					<td><input type="text" value="<%=joindate %>" size="10" name="joindate" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<th>고객등급[A:LVIP,B:일반,C:직원]</th>
+					<th>고객등급[A:VIP,B:일반,C:직원]</th>
 					<td><input type="text" value="" name="grade" size="1" maxlength="1"></td>
 				</tr>
 				<tr>

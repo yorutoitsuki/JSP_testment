@@ -50,9 +50,16 @@ function check() {
 	f.submit();
 }
  
+function goDelete(frm) {
+	if(confirm("삭제하시겠습니까?")){
+		frm.action = 'deletePro.jsp';
+		frm.submit();
+	}else{
+		return false;
+	}
+}
  
- 
- 
+
  
  
  

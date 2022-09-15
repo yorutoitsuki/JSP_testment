@@ -68,6 +68,8 @@
 						<button type="button" onclick="check();">수정</button>
 						&nbsp;
 						<button type="button" onclick="location.href='Select.jsp'">조회</button>
+						&nbsp;
+						<button type="button" onclick="goDelete(this.form);" >삭제</button>
 					</td>
 				</tr>
 				
