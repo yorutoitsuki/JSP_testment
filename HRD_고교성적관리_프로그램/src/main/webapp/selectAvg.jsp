@@ -8,13 +8,13 @@
 <body>
 	<%@include file="header.jsp"%>
 	<%
-	sql  = " select syear, sclass, tname, ";
-	sql += "		k1, e1,  m1,  k2 , e2 , m2 ";
-	sql += " from EXAMTBL_2";
-	sql += " join ( 	select sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, ";
+	sql  = " select b.syear, b.sclass, nvl(tname,'미배치'), ";
+	sql += "		k1, e1,  m1, k2 , e2 , m2 ";
+	sql += " from EXAMTBL_2 a";
+	sql += " right outer join ( 	select syear, sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, ";
 	sql += " 		round(avg(kor),1) as k2 ,round(avg(eng),1) as e2 ,round(avg(math),1) as m2";
-	sql += " 		from examtbl_3 group by sclass)";
-	sql += " using (sclass)";
+	sql += " 		from examtbl_3 group by (sclass,syear)) b";
+	sql += " on a.sclass = b.sclass";
 	rs = stmt.executeQuery(sql);
 	%>
 

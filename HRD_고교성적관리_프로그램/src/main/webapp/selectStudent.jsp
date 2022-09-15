@@ -8,12 +8,14 @@
 <body>
 	<%@include file="header.jsp"%>
 	<%
-	sql  = " select syear||'_'||sclass||'_'||sno, sname, gender, ";
+	sql  = " select a.syear||'_'||a.sclass||'_'||a.sno, sname, gender, ";
 	sql += "		nvl(kor,-1),nvl(eng,-1), nvl(math,-1),";
 	sql += "		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)),";
-	sql += "		round((nvl(kor,-1)+nvl(eng,-1)+nvl(math,-1))/3,1)";
-	sql += " from examtbl_1 join EXAMTBL_3";
-	sql += " using(syear, sclass, sno)";
+	sql += "		round((nvl(kor,0)+nvl(eng,0)+nvl(math,0))/3,1)";
+	sql += " from examtbl_1 a left outer join EXAMTBL_3 b";
+	sql += " on a.syear = b.syear";
+	sql += " and a.sclass = b.sclass";
+	sql += " and a.sno = b.sno";
 	rs = stmt.executeQuery(sql);
 	%>
 
@@ -62,6 +64,12 @@
 				if(avg.equals("0")){
 					avg = "";
 				}
+				
+				String total = rs.getString(7);
+				if(total.equals("0")){
+					total = "";
+				}
+				
 			%>
 			<tr>
 				<td><%=rs.getString(1)%></td>
@@ -70,7 +78,7 @@
 				<td><%=kor%></td>
 				<td><%=eng%></td>
 				<td><%=math%></td>
-				<td><%=rs.getString(7)%></td>
+				<td><%=total%></td>
 				<td><%=avg%></td>
 			</tr>
 			<%

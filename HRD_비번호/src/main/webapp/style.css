@@ -59,7 +59,9 @@ td a, td a:visited {
 	text-align: center;
 }
 
-
+nav a {
+	margin-left: 30px;
+}
 
 
 

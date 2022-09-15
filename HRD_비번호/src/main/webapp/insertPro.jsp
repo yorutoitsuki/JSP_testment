@@ -11,7 +11,7 @@
 		ps.setString(3, request.getParameter("phone"));
 		ps.setString(4, request.getParameter("address"));
 		ps.setString(5, request.getParameter("joindate"));
-		ps.setString(6, request.getParameter("grade"));
+		ps.setString(6, request.getParameter("grade").toUpperCase());
 		ps.setString(7, request.getParameter("city"));
 		
 		ps.executeUpdate();

@@ -27,6 +27,8 @@ insert into examtbl_1 values('1','03','01','남학생','20020701','F','010','123
 insert into examtbl_1 values('1','03','02','황학생','20020801','F','010','1234','1008');
 insert into examtbl_1 values('1','03','03','전학생','20020901','F','010','1234','1009');
 
+
+
 create table examtbl_2(
 syear char(1),
 sclass char(2),
@@ -62,12 +64,14 @@ insert into examtbl_3 values('1', '03', '03', 70, 70, 70);
 select syear||'_'||sclass||'_'||sno, sname, gender
 from examtbl_1;
 
-select syear||'_'||sclass||'_'||sno, sname, gender,
+select a.syear||'_'||a.sclass||'_'||a.sno, sname, gender,
 		nvl(kor,-1),nvl(eng,-1), nvl(math,-1),
 		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)),
 		round((nvl(kor,0)+nvl(eng,0)+nvl(math,0))/3,1)
-from examtbl_1 join EXAMTBL_3
-using(syear, sclass, sno);
+from examtbl_1 a left outer join EXAMTBL_3 b
+on a.syear = b.syear
+and a.sclass = b.sclass
+and a.sno = b.sno;
 
 select sum(nvl(kor,0)),sum(nvl(eng,0)),sum(nvl(math,0)),
 round(avg(nvl(kor,0)),1),round(avg(nvl(eng,0)),1),round(avg(nvl(math,0)),1)
@@ -82,17 +86,23 @@ select sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1,
 from examtbl_3
 group by sclass
 
-select syear, sclass, tname,
-		k1, e1,  m1, 
-		 k2 , e2 , m2
-from EXAMTBL_2
-join ( 	select sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, 
+--------------------testing 99 sclass score------------------
+select b.syear, b.sclass, nvl(tname,'미배치'),
+		k1, e1,  m1, k2 , e2 , m2
+from EXAMTBL_2 a
+right outer join ( 	select syear, sclass, sum(kor) as k1, sum(eng) as e1, sum(math) as m1, 
 		round(avg(kor),1) as k2 ,round(avg(eng),1) as e2 ,round(avg(math),1) as m2
-		from examtbl_3
-		group by sclass)
-using (sclass);
+		from examtbl_3 group by (sclass,syear)) b
+on a.sclass = b.sclass;
 
-delete from examtbl_3 where sno = 09;
+--------------------------------------------------------------------
+
+
+
+
+select * from EXAMTBL_3;
+
+delete from examtbl_3 where sno = 99;
 
 
 
