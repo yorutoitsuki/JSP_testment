@@ -62,7 +62,7 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<button type="button" onclick="check();">학생등록</button>
+					<button type="button" onclick="check();">학생수정</button>
 					<button type="reset">다시쓰기</button>
 				</th>
 			</tr>

@@ -104,10 +104,19 @@ function check2(btnId) {
 	}
 	
 	if(btnId == 'delete'){
-		f.selecter.value = 'delete';
+		if(confirm("삭제하시겠습니까?")){
+			f.selecter.value = 'delete';
+		}else{
+			return false;
+		}
+		
 	}
 	else if(btnId == 'update'){
-		f.selecter.value = 'update';
+		if(confirm("수정하시겠습니까?")){
+			f.selecter.value = 'update';
+		}else{
+			return false;
+		}
 	}
 	
 	f.action = 'UpdateDeletePro.jsp';

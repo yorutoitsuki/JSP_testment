@@ -28,7 +28,7 @@
 			while (rs.next()) {
 			%>
 			<tr>
-				<td><a href="Update.jsp?custno=<%=rs.getString(2)%>"><%=rs.getString(2)%></a> </td>
+				<td><a href="updateDelete.jsp?custno=<%=rs.getString(2)%>"><%=rs.getString(2)%></a> </td>
 				<td><%=rs.getString(3)%></td>
 				<td><%=rs.getString(4)%></td>
 				<td><%=rs.getString(5)%></td>
