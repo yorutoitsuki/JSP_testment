@@ -4,7 +4,7 @@
 <%@include file="DB_conn.jsp" %>
 <%
 	try{
-		sql = "insert into member_tbl_02 values(?,?,?,?,?,?,?)";
+		sql = "insert into member_tbl_02 values(?,?,?,?,?,UPPER(?),?)";
 		ps = con.prepareStatement(sql);
 		ps.setString(1, request.getParameter("custno"));
 		ps.setString(2, request.getParameter("custname"));
