@@ -18,7 +18,7 @@
 			</tr>
 			<tr>
 				<th>학년</th>
-				<td><input value="01" name="syear"size="10"></td>
+				<td><input maxlength="2" name="syear"size="10"></td>
 			</tr>
 			<tr>
 				<th>전공1</th>
