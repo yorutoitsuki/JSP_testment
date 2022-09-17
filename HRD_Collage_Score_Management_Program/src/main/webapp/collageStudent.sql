@@ -62,12 +62,46 @@ insert into score_tbl values(4003, '01', 60, 80, 90, 50, 40);
 
 select max(studno)+1 from student_tbl;
 
+select * from STUDENT_TBL;
+select * from score_tbl;
+
+select studno, sname, m_subject1, m_subject2, m_subject3, s_subject1, s_subject2, 
+		(m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2),
+		((m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2)/5),
+		sum(m_subject1) over(), sum(m_subject2) over(), sum(m_subject3) over(), sum(s_subject1) over(), sum(s_subject2) over(),
+		round(avg(m_subject1) over() ,1) , round(avg(m_subject2) over(),1), round(avg(m_subject3) over(),1),
+		round(avg(s_subject1) over(),1), round(avg(s_subject2) over(), 1)
+from STUDENT_TBL join score_tbl
+using(studno);
 
 
 
+select * from score_tbl;
+select * from grade_tbl;
 
 
+select m_subject1, m_subject2, m_subject3, s_subject1, s_subject2 from score_tbl;
 
+
+------------------------------------------------------------------------------------
+select  m1.grade,  m2.grade,  m3.grade,  s1.grade,  s2.grade from
+
+(select studno, grade from score_tbl, grade_tbl
+where loscore <= m_subject1 and m_subject1 <= hiscore) m1
+
+join (select studno, grade from score_tbl, grade_tbl
+where loscore <= m_subject2 and m_subject2 <= hiscore) m2 using (studno) 
+
+join (select studno, grade from score_tbl, grade_tbl
+where loscore <= m_subject3 and m_subject3 <= hiscore) m3 using (studno) 
+
+join (select studno, grade from score_tbl, grade_tbl
+where loscore <= s_subject1 and s_subject1 <= hiscore) s1 using (studno)
+
+join (select studno, grade from score_tbl, grade_tbl
+where loscore <= s_subject2 and s_subject2 <= hiscore) s2 using (studno)
+order by studno
+----------------------------------------------------------------------------------------
 
 
 
