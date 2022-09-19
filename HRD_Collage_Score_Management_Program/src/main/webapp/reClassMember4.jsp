@@ -24,6 +24,14 @@
 			<table class="selectTable">
 			<tr>
 				<th>과목</th>
+				<th>전공1</th>
+				<th>전공2</th>
+				<th>전공3</th>
+				<th>교양1</th>
+				<th>교양2</th>
+			</tr>
+			<tr>
+				<th>과목</th>
 				<%for(int i = 3; i <= columnLength; i++) {
 					%>
 					<th><%=rsmd.getColumnName(i) %></th>
@@ -40,8 +48,10 @@
 								
 								if(rs2.getString(1).equals("A")){
 									storeScore[i-3] += 1;
+									break;
 								}else if(rs2.getString(1).equals("F")){
 									storeScore[storeScore.length/2 + (i-3)]++;
+									break;
 								}
 							}
 						}
