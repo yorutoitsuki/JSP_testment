@@ -5,7 +5,7 @@
 <head>
 </head>
 <body>
-	<%@include file="db_connect.jsp" %>
+	<%@include file="header.jsp" %>
 	<%
 		sql  = " select  m1.grade,  m2.grade,  m3.grade,  s1.grade,  s2.grade from";
 	
@@ -28,6 +28,9 @@
 		
 		rs = stmt.executeQuery(sql);
 		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		
+		int columnLength = rsmd.getColumnCount();
 		/*
 		리절트셋메타데이터를 이용하여 grade 테이블의 값을 가져오고
 		score 테이블의 각 컬럼을 비교하여 등급을 반환 하는 함수를 만들어서
@@ -50,7 +53,7 @@
 			int m1F = 0; int m2F = 0; int m3F = 0; int s1F = 0; int s2F = 0;
 			
 			while(rs.next()){
-				for(int i = 1; i <= 5; i++) {
+				for(int i = 1; i <= columnLength; i++) {
 					String grade = rs.getString(i);
 					switch(i){
 					case 1:
