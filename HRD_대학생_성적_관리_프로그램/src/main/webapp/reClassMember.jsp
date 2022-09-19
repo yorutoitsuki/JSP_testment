@@ -12,7 +12,7 @@
 		sql += "		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end), ";
 		sql += "		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end), ";
 		sql += "		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end) ";
-		sql += "		from score_tbl, grade_tbl where grade = 'A' union ";
+		sql += "		from score_tbl, grade_tbl where grade = 'A' union all ";
 		sql += "select	sum(case when m_subject1 between loscore and hiscore then 1 else 0 end), ";
 		sql += "		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end), ";
 		sql += "		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end), ";
@@ -31,7 +31,7 @@
 				<th>전공2</th>
 				<th>전공3</th>
 				<th>교양1</th>
-				<th>굥야2</th>
+				<th>교양2</th>
 			</tr>
 			<%
 			rs.next();

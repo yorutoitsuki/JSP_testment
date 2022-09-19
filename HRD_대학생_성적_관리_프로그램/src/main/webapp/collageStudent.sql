@@ -75,6 +75,18 @@ select studno, sname, m_subject1, m_subject2, m_subject3, s_subject1, s_subject2
 from STUDENT_TBL join score_tbl
 using(studno);
 
+
+select studno, sname, m_subject1, m_subject2, m_subject3, s_subject1, s_subject2, 
+		(m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2),
+		((m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2)/5)
+from STUDENT_TBL join score_tbl using(studno) union all
+
+select -1, '과목총점', sum(m_subject1), sum(m_subject2), sum(m_subject3), sum(s_subject1), sum(s_subject2), null, null
+from score_tbl union all
+
+select -1, '과목평균', round(avg(m_subject1),1) , round(avg(m_subject2),1), round(avg(m_subject3),1), round(avg(s_subject1),1), round(avg(s_subject2), 1), null, null
+from score_tbl
+
 --------------------------------------------------union_start-----------------------------------------------------------------------------
 select studno, sname, m_subject1, m_subject2, m_subject3, s_subject1, s_subject2, 
 		(m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2),
@@ -123,17 +135,52 @@ where loscore <= s_subject2 and s_subject2 <= hiscore) s2 using (studno)
 order by studno
 ----------------------------------------------------------------------------------------
 
+
+
 select 	sum(case when m_subject1 between loscore and hiscore then 1 else 0 end),
 		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end),
 		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end),
 		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end),
 		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end)
-		from score_tbl, grade_tbl where grade = 'A' union 
+		from score_tbl, grade_tbl where grade = 'A' union all
 select	sum(case when m_subject1 between loscore and hiscore then 1 else 0 end),
 		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end),
 		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end),
 		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end),
 		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end)
+		from score_tbl, grade_tbl where grade = 'F';
+		
+		
+select 	'성적우수자' as subject,
+		sum(case when m_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end),
+		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end)
+		from score_tbl, grade_tbl where grade = 'A' union all
+select	'재수강대상자' as subject,
+		sum(case when m_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end),
+		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end)
+		from score_tbl, grade_tbl where grade = 'F';
+
+-------------------------------------------------------------------------------------------------
+		
+select 	'성적우수자' as subject,
+		count(case when m_subject1 between loscore and hiscore then 1 end),
+		count(case when m_subject2 between loscore and hiscore then 1 end),
+		count(case when m_subject3 between loscore and hiscore then 1 end),
+		count(case when s_subject1 between loscore and hiscore then 1 end),
+		count(case when m_subject2 between loscore and hiscore then 1 end)
+		from score_tbl, grade_tbl where grade = 'A' union all
+select	'재수강대상자' as subject,
+		count(case when m_subject1 between loscore and hiscore then 1 end),
+		count(case when m_subject2 between loscore and hiscore then 1 end),
+		count(case when m_subject3 between loscore and hiscore then 1 end),
+		count(case when s_subject1 between loscore and hiscore then 1 end),
+		count(case when m_subject2 between loscore and hiscore then 1 end)
 		from score_tbl, grade_tbl where grade = 'F';
 
 /*
@@ -215,5 +262,16 @@ count(case when s_subject1 >= 90 then 1 ),
 count(case when s_subject2 >= 90 then 1 )
 from score_tbl;
 
+--grade 테이블을 사용함, java로 처리
+java.sql.ResultSetMetaData 클래스 이용
+메타 데이터란 ? 저장된 데이터 그 자체는 아니지만 해당 데이터에 대한 정보를 갖고 있는 데이터를 의미한다.
+즉, DB 내의 데이터에 대한 데이터의 소유, 데이터의 크기에 관련된 정보들이다.
 
+ResultSetMetaData는 SQL로 받아온 데이터의 정보를 조회/출력하는 용도로 사용된다.
+ResultSet 인터페이스 객체의 getMetaData()를 호출하여 ResultSetMetaData 인터페이스 객체를 얻으면
+해당 ResultSet과 관련된 메타 데이터를 얻을 수 있다.
+
+String sql = "Select 필드명 from 테이블명";
+esultSet = rs = stmt.executeQuery(sql);
+ResultSetMetaData resultMetaData = rs.getMetaData();
 

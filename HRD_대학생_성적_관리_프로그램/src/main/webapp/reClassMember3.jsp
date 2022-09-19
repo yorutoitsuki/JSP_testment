@@ -27,7 +27,11 @@
 		sql += " order by studno";
 		
 		rs = stmt.executeQuery(sql);
-		
+		/*
+		리절트셋메타데이터를 이용하여 grade 테이블의 값을 가져오고
+		score 테이블의 각 컬럼을 비교하여 등급을 반환 하는 함수를 만들어서
+		처리하면 되나?
+		*/
 		%>
 		<h1>성적조회</h1>
 		<section>
@@ -79,7 +83,7 @@
 					case 5:
 						switch(grade){
 						case"A": s2A++; break;
-						case"F": s2F++; break;
+					 	case"F": s2F++; break;
 						default: break;
 						}
 						break;
