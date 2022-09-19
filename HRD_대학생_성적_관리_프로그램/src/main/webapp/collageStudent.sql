@@ -39,11 +39,11 @@ insert into grade_tbl values('F', 0, 59);
 create table score_tbl(
 	studno number,
 	syear char(2),
-	m_subject1 number,
-	m_subject2 number,
-	m_subject3 number,
-	s_subject1 number,
-	s_subject2 number,
+	m_subject1 number check(m_subject1 between 0 and 100),
+	m_subject2 number check(m_subject2 between 0 and 100),
+	m_subject3 number check(m_subject3 between 0 and 100),
+	s_subject1 number check(s_subject1 between 0 and 100),
+	s_subject2 number check(s_subject2 between 0 and 100),
 	primary key(studno, syear)
 );
 
@@ -57,7 +57,7 @@ insert into score_tbl values(4001, '01', 90, 80, 90, 90, 80);
 insert into score_tbl values(4002, '01', 70, 60, 90, 50, 80);
 insert into score_tbl values(4003, '01', 60, 80, 90, 50, 40);
 
-
+drop table score_tbl;
 
 select max(studno)+1 from student_tbl;
 
@@ -75,7 +75,25 @@ select studno, sname, m_subject1, m_subject2, m_subject3, s_subject1, s_subject2
 from STUDENT_TBL join score_tbl
 using(studno);
 
+--------------------------------------------------union_start-----------------------------------------------------------------------------
+select studno, sname, m_subject1, m_subject2, m_subject3, s_subject1, s_subject2, 
+		(m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2),
+		((m_subject1 + m_subject2 + m_subject3 + s_subject1 + s_subject2)/5)
+from STUDENT_TBL left outer join score_tbl
+using(studno)
 
+union
+
+select null, '과목총점', sum(m_subject1), sum(m_subject2), sum(m_subject3), sum(s_subject1), sum(s_subject2), null, null
+from score_tbl
+
+union
+
+select null, '과목평균', avg(m_subject1), avg(m_subject2), avg(m_subject3), avg(s_subject1), avg(s_subject2), null, null
+from score_tbl
+---------------------------------------------------union_end----------------------------------------------------------------------------
+
+--union 중복제거, union all 중복제거
 
 select * from score_tbl;
 select * from grade_tbl;
@@ -104,4 +122,98 @@ join (select studno, grade from score_tbl, grade_tbl
 where loscore <= s_subject2 and s_subject2 <= hiscore) s2 using (studno)
 order by studno
 ----------------------------------------------------------------------------------------
+
+select 	sum(case when m_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end),
+		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end)
+		from score_tbl, grade_tbl where grade = 'A' union 
+select	sum(case when m_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject3 between loscore and hiscore then 1 else 0 end),
+		sum(case when s_subject1 between loscore and hiscore then 1 else 0 end),
+		sum(case when m_subject2 between loscore and hiscore then 1 else 0 end)
+		from score_tbl, grade_tbl where grade = 'F';
+
+/*
+ * sum과 count 함수 비교
+ * sum(컬럼명 number) : 컬럼에 해당하는 전체 합계
+ * count() : 테이블에 데이터가 몇 건이 존재하는지 확인
+ * 			*count(*) 만 null 포함
+ */
+
+drop table test;
+create table test(
+	name varchar2(5),
+	salary number,
+	dept varchar2(2),
+	commission number
+);
+
+insert into test values('test1', 1000, 'd1', '');
+insert into test values('test2', 1000, 'd1', '');
+insert into test values('test3', 2000, '', '');
+insert into test values('test4', 1000, 'd2', '');
+insert into test values('test5', 2000, 'd2', '');
+insert into test values('test6', '', 'd2', '');
+
+select * from test;
+
+select count(*), count(dept), count(nvl(dept,0)), count(distinct dept)
+from test;
+
+
+select /*sum(*),*/ sum(salary), sum(nvl(salary,0)), sum(distinct salary)
+from test;
+
+select count(commission), sum(commission)
+from test;
+
+/*
+ * sum과 avg함수 비교 설명
+ */
+
+select /*avg(*),*/
+avg(salary), 
+avg(nvl(salary,0)), 
+avg(distinct salary)--(null 제외, 중복제외 : 1000과 2000의 평균)
+from test;
+
+count(1, null, 1, null) -> count(1, 1) : 행수 2
+sum(1, null, 1, null) -> sum(1, 1) : 더하면 2
+
+count(3, null, 4, null) -> count(3, 4) : 행수 2
+sum(3, null, 4, null) -> sum(3, 4) : 더하면 7
+
+따라서 아래 sql문은 count 대신 sum 사용 가능
+그러나 sum 결과로 null 이 나올 수 있으므로 null 처리 해줘야함
+
+--1
+select case when m_subject1 >= 90 then 1 else 0 end,
+case when m_subject2 >= 90 then 1 else 0 end,
+case when m_subject3 >= 90 then 1 else 0 end,
+case when s_subject1 >= 90 then 1 else 0 end,
+case when s_subject2 >= 90 then 1 else 0 end
+from score_tbl;
+
+--2 
+--sum은 null 제외 함에도 else를 넣는 이유? 전부 null이면 null을 뱉어내서
+select sum(case when m_subject1 >= 90 then 1 else 0 end),
+sum(case when m_subject2 >= 90 then 1 else 0 end),
+sum(case when m_subject3 >= 90 then 1 else 0 end),
+sum(case when s_subject1 >= 90 then 1 else 0 end),
+sum(case when s_subject2 >= 90 then 1 else 0 end)
+from score_tbl;
+
+
+--count 이용시 반드시 else 제거, null값을 카운트 하지 않게하기 위해
+select count(case when m_subject1 >= 90 then 1),
+count(case when m_subject2 >= 90 then 1 ),
+count(case when m_subject3 >= 90 then 1 ),
+count(case when s_subject1 >= 90 then 1 ),
+count(case when s_subject2 >= 90 then 1 )
+from score_tbl;
+
+
 

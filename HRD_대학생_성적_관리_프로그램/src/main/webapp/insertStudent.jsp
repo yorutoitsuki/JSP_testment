@@ -19,8 +19,7 @@
 		<table>
 			<tr>
 				<th>학번</th>
-				<td><input value="<%=rs.getString(1)%>" readonly="readonly"
-					name="studno" size="10">(자동생성)</td>
+				<td><input value="<%=rs.getString(1)%>" readonly="readonly" name="studno" size="10">(자동생성)</td>
 			</tr>
 			<tr>
 				<th>학년</th>
