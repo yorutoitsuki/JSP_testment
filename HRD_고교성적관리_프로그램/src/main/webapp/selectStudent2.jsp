@@ -94,6 +94,8 @@
 			</tr>
 			<%
 			}
+			%>
+			<%
 			sql  = " select sum(nvl(kor,0)),sum(nvl(eng,0)),sum(nvl(math,0)),";
 			sql += " round(avg(nvl(kor,0)),1),round(avg(nvl(eng,0)),1),round(avg(nvl(math,0)),1)";
 			sql += " from examtbl_3";

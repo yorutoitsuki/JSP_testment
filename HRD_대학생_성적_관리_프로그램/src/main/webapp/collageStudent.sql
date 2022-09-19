@@ -61,6 +61,8 @@ insert into score_tbl values(4003, '01', 60, 80, 90, 50, 40);
 
 select max(studno)+1 from student_tbl;
 
+delete from student_tbl where 4004 <= studno and studno <= 4009;
+
 select * from STUDENT_TBL;
 select * from score_tbl;
 
