@@ -80,6 +80,7 @@ using(studno);
 select * from score_tbl;
 select * from grade_tbl;
 
+delete from score_tbl where studno = 4004;
 
 select m_subject1, m_subject2, m_subject3, s_subject1, s_subject2 from score_tbl;
 

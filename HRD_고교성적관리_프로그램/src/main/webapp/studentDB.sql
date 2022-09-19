@@ -83,6 +83,17 @@ select syear||'_'||sclass||'_'||sno, nvl(sname,'-1'), nvl(gender,'-1'),
  from examtbl_1 a full outer join EXAMTBL_3 b
  using (syear, sclass, sno);
  
+ 
+ 
+select syear||'_'||sclass||'_'||sno, nvl(sname,'-1'), nvl(gender,'-1'),
+		nvl(kor,-1),nvl(eng,-1), nvl(math,-1),
+		(nvl(kor,0)+nvl(eng,0)+nvl(math,0)),
+		round((nvl(kor,0)+nvl(eng,0)+nvl(math,0))/3,1),
+		sum(nvl(kor,0)) over(), sum(nvl(eng,0)) over(),  sum(nvl(math,0)) over(),
+		round(avg(nvl(kor,0)) over(),1), round(avg(nvl(eng,0)) over(),1), round(avg(nvl(math,0)) over(),1)
+ from examtbl_1 a full outer join EXAMTBL_3 b
+ using (syear, sclass, sno);
+ 
  -----------------------------------------------------
  --avg null값 포함 하지 않는 selectStudent--------------------
  ------------------------------------------------------
@@ -110,6 +121,25 @@ from examtbl_1 a left outer join EXAMTBL_3 b
 on a.syear = b.syear
 and a.sclass = b.sclass
 and a.sno = b.sno;
+
+select * 
+from (select syear, sclass, sno, NVL(sname, ' '),
+		DECODE(gender , 'M' , '남', 'F', '여' , ' ') as decodeGender,
+		NVL(to_char(kor), ' ') as korScore,
+		NVL(to_char(eng), ' ') as engScore,
+		NVL(to_char(math), ' ') as mathScore,
+		NVL(to_char(SUM(kor+eng+math)), ' ') as totalSum,
+		NVL(to_char(round(SUM(kor+eng+math) / 3 , 1)), ' ') as totalAvg
+		from examtbl_1 FULL OUTER JOIN examtbl_3
+		USING(syear,sclass,sno)
+		group by syear, sclass, sno, sname, gender, kor, eng, math
+		order by syear, sclass, sno asc)
+CROSS JOIN (select SUM(NVL(kor, 0)) as korSum,
+			SUM(NVL(eng, 0)) as engSum, SUM(NVL(math, 0)) as mathSum,
+			round(AVG(NVL(kor, 0)), 1) as korAvg,
+			round(AVG(NVL(eng, 0)), 1) as engAvg, round(AVG(NVL(math, 0)), 1) as mathAvg
+			from examtbl_3);
+
 
 select sum(nvl(kor,0)),sum(nvl(eng,0)),sum(nvl(math,0)),
 round(avg(nvl(kor,0)),1),round(avg(nvl(eng,0)),1),round(avg(nvl(math,0)),1)
