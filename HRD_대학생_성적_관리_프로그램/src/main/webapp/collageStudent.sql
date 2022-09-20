@@ -275,3 +275,14 @@ String sql = "Select 필드명 from 테이블명";
 esultSet = rs = stmt.executeQuery(sql);
 ResultSetMetaData resultMetaData = rs.getMetaData();
 
+--성적 우수자
+select count(*)
+from score_tbl join grade_tbl
+on(m_subject1 between loscore and hiscore)
+where grade ='A';
+
+--재수강 대상자
+select count(*)
+from score_tbl join grade_tbl
+on(m_subject1 between loscore and hiscore)
+where grade ='F';

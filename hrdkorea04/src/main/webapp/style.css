@@ -35,6 +35,11 @@ table, tr, th, td {
 td {
 	text-align: left;
 }
+.insertStudentTable th {
+	width: 150px;
+}
+
+
 
 a, a:visited {
 	text-decoration: none;
@@ -75,7 +80,9 @@ form div {
 }
 
 
-
+span {
+	width: 10%;
+}
 
 
 

@@ -6,6 +6,8 @@
 </head>
 <body>
 	<%@include file="header.jsp" %>
+	
+	
 	<section>
 		<h2>수강생 등록</h2>
 		<form action="insertStudentPro.jsp" method="post" name="f">
@@ -31,13 +33,13 @@
 					<td>
 						<input name="student_email" size="20" maxlength="50">@
 						<select name="email_address">
-							<option value="naver.com">naver.com</option>
-							<option value="chol.net">chol.net</option>
-							<option value="gamil.com">gamil.com</option>
-							<option value="daum.com">daum.com</option>
-							<option value="kr.com">kr.com</option>
-							<option value="jp.com">jp.com</option>
-							<option value="usa.com">usa.com</option>
+							<option value="@naver.com">naver.com</option>
+							<option value="@chol.net">chol.net</option>
+							<option value="@gamil.com">gamil.com</option>
+							<option value="@daum.com">daum.com</option>
+							<option value="@kr.com">kr.com</option>
+							<option value="@jp.com">jp.com</option>
+							<option value="@usa.com">usa.com</option>
 						</select>
 					</td>
 				</tr>

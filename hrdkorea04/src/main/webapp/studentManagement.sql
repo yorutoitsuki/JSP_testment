@@ -10,6 +10,18 @@ create table student_tbl_01(
 	student_pw varchar2(50)
 );
 
+select student_birth from student_tbl_01;
+select to_date(student_birth,'yyyy/mm/dd') from student_tbl_01
+
+select * from student_tbl_01;
+
+delete from student_tbl_01 where student_no >= 201804
+
+select student_no, student_name, student_addr, student_phone, student_birth,
+nvl(student_email,'-1'), nvl(student_id,'-1'), nvl(student_pw,'-1') from student_tbl_01;
+
+select max(student_no) + 1 from student_tbl_01;
+
 insert into student_tbl_01 values(201801, '이기자', '경산지 진량읍', '011222333', '01/09/26', 'abc@naver.com', '', '');
 insert into student_tbl_01 values(201802, '김을동', '대구시 수성구 수성1가', '010444555', '97/05/19', 'asd@chol.net', '', '');
 insert into student_tbl_01 values(201803, '김희선', '제주도 제주시 외나무골', '054111222', '02/09/06', 'qwe@gmail.com', '', '');
@@ -24,6 +36,11 @@ create table subject_tbl_01(
 	subject_desc clob,
 	subject_teacher varchar2(12)
 );
+
+
+select null ,to_char(sysdate,'yyyy/mm/dd') from dual
+union all select student_no, null from student_tbl_01
+
 
 delete from subject_tbl_01;
 
@@ -40,22 +57,44 @@ create table register_tbl_01(
 	register_status char(1) default 0
 );
 
+delete from register_tbl_01;
+
 insert into register_tbl_01 values(1,'201801','C001','18/08/30',0);
 insert into register_tbl_01 values(2,'201802','C001','18/08/30',0);
 insert into register_tbl_01 values(3,'201801','D001','18/09/02',1);
 insert into register_tbl_01 values(4,'201803','D001','18/09/02',2);
 insert into register_tbl_01 values(5,'201803','D002','18/09/03',1);
 
+select * from student_tbl_01;
+select * from subject_tbl_01;
+select * from register_tbl_01;
+
+
+select student_no, student_name, student_phone, student_birth,
+nvl(student_email,'-1'), nvl(student_id,'-1'), nvl(student_pw,'-1') from student_tbl_01;
+
+select student_no, count(student_no)
+from student_tbl_01 join register_tbl_01
+using (student_no)
+group by student_no;
+
+select * from (select student_no, student_name, student_phone, to_char(student_birth, ''),
+nvl(student_email,'-1') as email , nvl(student_id,'-1') as id , nvl(student_pw,'-1') as pw from student_tbl_01)
+join (select student_no, count(student_no) as LC from student_tbl_01 join register_tbl_01
+using (student_no) group by student_no) using (student_no)
+
+select student_no, student_name, student_phone, student_birth,
+nvl(student_email,'-1'), nvl(student_id,'-1'), nvl(student_pw,'-1') from student_tbl_01
 
 
 
 
 
-
-
-
-
-
+select student_no, student_name, student_phone, birth, email, id, pw, nvl(LC, 0)
+from (select student_no, student_name, student_phone, to_char(student_birth, 'yyyy/mm/dd') as birth ,
+nvl(student_email,'-1') as email , nvl(student_id,'-1') as id , nvl(student_pw,'-1') as pw from student_tbl_01)
+left outer join (select student_no, count(student_no) as LC from student_tbl_01 join register_tbl_01
+using (student_no) group by student_no) using (student_no);
 
 
 
