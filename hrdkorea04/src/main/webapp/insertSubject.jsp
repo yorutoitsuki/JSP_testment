@@ -49,7 +49,8 @@
 				<tr>
 					<th>신청과목</th>
 					<td>
-						<select name="subject_name">
+						<select name="subject_seq">
+							<option value="">수강과목</option>
 							<option value="C001">자바프로그래밍</option>
 							<option value="C002">안드로이드프로그래밍</option>
 							<option value="D001">HTML/CSS</option>
@@ -60,12 +61,12 @@
 				</tr>
 				<tr>
 					<th>신청일자</th>
-					<td><input name="subject_startdate" size="20" readonly="readonly" value="<%=DD%>"></td>
+					<td><input name="register_date" size="20" readonly="readonly" value="<%=DD%>"></td>
 				</tr>
 				<tr>
 					<th>수강상태</th>
 					<td>
-						<select name="jubject_state">
+						<select name="register_status">
 							<option value="0">신청</option>
 							<option value="1">완료</option>
 							<option value="2">취소</option>
@@ -74,8 +75,8 @@
 				</tr>
 			</table>
 			<div>
-				<button type="button" onclick="checkInsertStudent()">등록</button>
-				<button type="button" onclick="location.href = 'selectSubject.jsp'">조회</button>
+				<button type="button" onclick="checkInsertSubject()">등록</button>
+				<button type="button" onclick="location.href = 'insertSubjectPro.jsp'">조회</button>
 			</div>
 			
 		</form>
