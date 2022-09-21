@@ -83,10 +83,9 @@ form div {
 span {
 	width: 10%;
 }
-
-
-
-
+.selectMonthTable td{
+	text-align: right;
+}
 
 
 

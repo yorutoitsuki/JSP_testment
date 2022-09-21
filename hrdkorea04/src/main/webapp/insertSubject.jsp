@@ -40,7 +40,7 @@
 	
 	<section>
 		<h2>수강 신청</h2>
-		<form action="insertStudentPro.jsp" method="post" name="f">
+		<form action="insertSubjectPro.jsp" method="post" name="f">
 			<table class="insertStudentTable">
 				<tr>
 					<th>수강생번호</th>

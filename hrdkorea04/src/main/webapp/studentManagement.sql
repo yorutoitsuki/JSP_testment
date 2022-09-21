@@ -57,6 +57,8 @@ create table register_tbl_01(
 	register_status char(1) default 0
 );
 
+select * from register_tbl_01;
+
 delete from register_tbl_01;
 
 insert into register_tbl_01 values(1,'201801','C001','18/08/30',0);
@@ -97,22 +99,50 @@ left outer join (select student_no, count(student_no) as LC from student_tbl_01 
 using (student_no) group by student_no) using (student_no);
 
 
+select * from student_tbl_01;
+select * from subject_tbl_01;
+select * from register_tbl_01;
+
+select register_seq, student_no, subject_name, register_date, register_status
+from subject_tbl_01 sub join register_tbl_01 reg
+using(subject_seq)
+
+select register_seq, student_no, student_name, subject_name, register_date, register_status
+from student_tbl_01 join
+(select register_seq, student_no, subject_name, register_date, register_status
+from subject_tbl_01 sub join register_tbl_01 reg
+using(subject_seq))
+using(student_no);
+
+
+select register_seq, student_no, student_name, subject_name, register_date,
+(case when register_status = '0' then '신청' 
+	  when register_status = '1' then '완료'
+	  when register_status = '2' then '취소'
+	  else '-1' end) from student_tbl_01 join
+	(select register_seq, student_no, subject_name, register_date, register_status
+from subject_tbl_01 sub join register_tbl_01 reg
+using(subject_seq)) using(student_no) order by register_seq desc;
+
+select to_char(register_date,'yyyy/mm'), count(to_char(register_date,'yyyy/mm'))
+from register_tbl_01
+group by to_char(register_date,'yyyy/mm')
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+select -1, count(to_char(register_date,'yyyy/mm')), 
+to_char(register_date,'yyyy/mm'), null, null, null from register_tbl_01
+group by to_char(register_date,'yyyy/mm') union all select * from (
+select register_seq, student_no, student_name, subject_name, register_date,
+(case when register_status = '0' then '신청' 
+	  when register_status = '1' then '완료'
+	  when register_status = '2' then '취소'
+	  else '-1' end) from student_tbl_01 join
+	(select register_seq, student_no, subject_name, register_date, register_status
+from subject_tbl_01 sub join register_tbl_01 reg
+using(subject_seq)) using(student_no) order by register_seq desc);
 
 
 
