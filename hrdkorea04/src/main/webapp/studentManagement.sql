@@ -10,7 +10,16 @@ create table student_tbl_01(
 	student_pw varchar2(50)
 );
 
-select student_birth from student_tbl_01;
+select student_name, nvl(student_addr,'-1'), student_phone, to_char(student_birth,'yyyy/mm/dd'), 
+nvl(student_email,'-1'), nvl(student_id,'-1'), nvl(student_pw,'-1')
+from student_tbl_01 where student_no = 201801
+
+select * from student_tbl_01;
+
+update student_tbl_01 set student_name = 'test1', student_addr = 'testCity1', student_phone = '010-9999-9999',
+student_birth = to_date(19991231,'yyyy/mm/dd'), student_email = '', student_id = '', student_pw = '' 
+where student_no = 201804;
+
 select to_date(student_birth,'yyyy/mm/dd') from student_tbl_01
 
 select * from student_tbl_01;

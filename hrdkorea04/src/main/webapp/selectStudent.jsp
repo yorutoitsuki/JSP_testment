@@ -19,7 +19,7 @@
 
 	<section>
 		<h2>수강생 조회/수정</h2>
-		<table>
+		<table class="selectTable">
 			<tr>
 				<th>수강생번호</th>
 				<th>이름</th>
@@ -34,14 +34,14 @@
 			while(rs.next()){
 				%>
 				<tr>
-					<th><%=rs.getString(1) %></th>
-					<th><%=rs.getString(2) %></th>
-					<th><%=rs.getString(3) %></th>
-					<th><%=rs.getString(4) %></th>
-					<th><%=rs.getString(5).equals("-1")?"":rs.getString(5) %></th>
-					<th><%=rs.getString(6).equals("-1")?"":rs.getString(6) %></th>
-					<th><%=rs.getString(7).equals("-1")?"":rs.getString(7) %></th>
-					<th><%=rs.getString(8) %></th>
+					<td><a href="updateStudent.jsp?student_no=<%=rs.getString(1) %>"><%=rs.getString(1) %></a></td>
+					<td><%=rs.getString(2) %></td>
+					<td><%=rs.getString(3) %></td>
+					<td><%=rs.getString(4) %></td>
+					<td><%=rs.getString(5).equals("-1")?"":rs.getString(5) %></td>
+					<td><%=rs.getString(6).equals("-1")?"":rs.getString(6) %></td>
+					<td><%=rs.getString(7).equals("-1")?"":rs.getString(7) %></td>
+					<td><%=rs.getString(8) %></td>
 				</tr>
 				<%
 			}

@@ -9,11 +9,11 @@
 	} 
 	if(f.student_phone.value == "") {
 		alert("연락처를 입력해주세요");
-		return f.student_name.focus();
+		return f.student_phone.focus();
 	} 
 	if(f.student_birth.value == "") {
 		alert("생년월일을 입력해주세요");
-		return f.student_name.focus();
+		return f.student_birth.focus();
 	}
 	f.submit();
 }
