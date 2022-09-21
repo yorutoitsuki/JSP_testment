@@ -88,9 +88,16 @@ group by (me_id, mo_name)) using (mo_name)
 join (select * from movie_1) using(me_id) order by me_name asc
 
 
+select * from movie_2;
+select * from movie_3;
 
+select mo_name, count(mo_name)
+from movie_2
+group by mo_name
 
-
+select mo_name, mo_limit, BookN from movie_3 join 
+(select mo_name, count(mo_name) as BookN from movie_2
+group by mo_name) using (mo_name) order by BookN desc
 
 
 

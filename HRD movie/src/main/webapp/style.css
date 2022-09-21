@@ -87,7 +87,9 @@ span {
 	text-align: right;
 }
 
-
+.memberSelectTable td {
+	text-align: center;
+}
 
 
 
