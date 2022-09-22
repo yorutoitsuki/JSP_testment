@@ -151,7 +151,8 @@ group by to_char(register_date,'yyyy/mm')
 
 
 
-
+select * from register_tbl_01
+delete from register_tbl_01 where student_no is null;
 
 select -1, count(to_char(register_date,'yyyy/mm')), 
 to_char(register_date,'yyyy/mm'), null, null, null from register_tbl_01

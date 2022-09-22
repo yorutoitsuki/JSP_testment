@@ -76,7 +76,7 @@
 			</table>
 			<div>
 				<button type="button" onclick="checkInsertSubject()">등록</button>
-				<button type="button" onclick="location.href = 'insertSubjectPro.jsp'">조회</button>
+				<button type="button" onclick="location.href = 'selectSubject.jsp'">조회</button>
 			</div>
 			
 		</form>

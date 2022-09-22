@@ -7,13 +7,13 @@
 	sql  = "select max(register_seq) + 1 from register_tbl_01";
 	rs = stmt.executeQuery(sql);
 	rs.next();
-	int register_seq = rs.getInt(1);
+	String register_seq = rs.getString(1);
 %>
 <%
 	try{
-		sql  = "insert into register_tbl_01 values(?,?,?,to_date(?,'yyyy/mm/dd'),?)";
+		sql  = "insert into register_tbl_01 values(?,?,?,?,?)";
 		ps = con.prepareStatement(sql);
-		ps.setInt(1, register_seq);
+		ps.setString(1, register_seq);
 		ps.setString(2, request.getParameter("student_no"));
 		ps.setString(3, request.getParameter("subject_seq"));
 		ps.setString(4, request.getParameter("register_date"));
