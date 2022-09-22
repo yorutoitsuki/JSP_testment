@@ -10,6 +10,18 @@ create table student_tbl_01(
 	student_pw varchar2(50)
 );
 
+/*
+ * unique : 중복X -> 유일한 값 = 고유값 -> 고유키(암시적 index 자동생성)
+ * 			**'null('')값을 허용' 하지만 동일한 값이 저장되는 것만은 허용하지 않음
+ * 			동일한 값 저장시 무결성 제약조건에 위배되어 저장안됨
+ */
+
+create sequence register_seq
+start with 1
+increment by 1
+minvalue 1;
+
+
 select student_name, nvl(student_addr,'-1'), student_phone, to_char(student_birth,'yyyy/mm/dd'), 
 nvl(student_email,'-1'), nvl(student_id,'-1'), nvl(student_pw,'-1')
 from student_tbl_01 where student_no = 201801
