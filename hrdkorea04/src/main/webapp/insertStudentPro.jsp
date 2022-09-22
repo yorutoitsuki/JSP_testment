@@ -44,18 +44,24 @@
 		<%
 	}
 	finally {
-		if(con != null) {
-			con.close();
+		try{
+			if(con != null) {
+				con.close();
+			}
+			if(stmt != null) {
+				stmt.close();
+			}
+			if(ps != null) {
+				ps.close();
+			}
+			if(rs != null) {
+				rs.close();
+			}
 		}
-		if(stmt != null) {
-			stmt.close();
+		catch(Exception e){
+			
 		}
-		if(ps != null) {
-			ps.close();
-		}
-		if(rs != null) {
-			rs.close();
-		}
+
 	}
 	
 %>
