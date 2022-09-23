@@ -15,12 +15,10 @@
 		rs.next();
 		String date = rs.getString(2);
 		
-		
-		
 	%>
 	<section>
 		<h1>영화 티켓 예매</h1>
-		<form action="InsertMoviePro2.jsp" name="f" method="post">
+		<form action="InsertMoviePro3.jsp" name="f" method="post">
 			<table>
 				<tr>
 					<th>회원아이디</th>

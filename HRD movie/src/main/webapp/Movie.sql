@@ -60,6 +60,7 @@ select mo_name from movie_3 order by mo_no;
 
 select me_id, me_name, mo_name, mo_limit, count()
 
+select me_id, me_pass from MOVIE_1;
 
 select * from movie_1;
 select * from movie_2;
@@ -105,7 +106,7 @@ group by mo_name) using (mo_name) order by BookN desc
 select null, to_char(sysdate,'yyyy-mm-dd') from dual
 union all select mo_name, null from movie_3
 
-
+delete from movie_2 where me_pass = 'a';
 
 
 
