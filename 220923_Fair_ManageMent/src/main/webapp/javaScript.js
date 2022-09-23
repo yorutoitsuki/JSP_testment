@@ -83,7 +83,11 @@ function updatePCheck() {
 	f.action = "updateProcedurePro.jsp";
 	f.submit();
 }
- 
+
+function resetAlert() {
+	alert("정보를 지우고 처음부터 다시 입력합니다");
+	f.w_workno.focus();
+}
  
  
  

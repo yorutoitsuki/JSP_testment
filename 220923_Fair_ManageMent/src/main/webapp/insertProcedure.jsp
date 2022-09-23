@@ -68,7 +68,7 @@
 					<th colspan="2">
 						<button type="button" onclick="insertPCheck();">공정등록</button>
 						<button type="button" onclick="updatePCheck();">공정수정</button>
-						<button type="reset">다시쓰기</button>
+						<button type="reset" onclick="resetAlert();">다시쓰기</button>
 					</th>
 				</tr>
 			</table>

@@ -55,6 +55,7 @@ create table tbl_process(
 	w_lasttime char(4)
 );
 
+
 insert into tbl_process values('20190001','Y','Y','Y','Y','Y','Y','20191001','0930');
 insert into tbl_process values('20190002','Y','Y','Y','Y','Y','Y','20191001','1030');
 insert into tbl_process values('20190003','Y','Y','Y','Y','Y','Y','20191001','1130');
