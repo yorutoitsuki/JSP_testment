@@ -75,7 +75,7 @@ create table register_tbl_01(
 	student_no number,
 	subject_seq varchar2(10),
 	register_date date,
-	register_status char(1) default 0
+	register_status char(1) default 0 check(register_status in(0,1,2))
 );
 
 select * from register_tbl_01;
