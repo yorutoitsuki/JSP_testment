@@ -18,6 +18,8 @@ insert into tbl_product values('C003','C-3형 소형박스','180 x 150 x 100','C
 
 select * from tbl_product
 
+select p_code, p_name, p_size, p_type, to_char(p_price,'L9,999,999') from tbl_product
+
 create table tbl_worklist(
 	w_workno char(8) primary key,
 	p_code char(4),

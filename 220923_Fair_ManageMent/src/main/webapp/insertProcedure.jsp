@@ -9,7 +9,7 @@
 	<section>
 		<h1>작업공정등록</h1>
 		<form action="insertProcedurePro.jsp" name="f" method="post">
-			<table>
+			<table class="insertPTable">
 				<tr>
 					<th>작업지시번호</th>
 					<td><input type="text" name="w_workno" size="20" maxlength="8">예)20190001</td>

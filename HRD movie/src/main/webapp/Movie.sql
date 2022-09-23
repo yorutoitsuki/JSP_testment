@@ -65,6 +65,8 @@ select * from movie_1;
 select * from movie_2;
 select * from movie_3;
 
+select mo_name, to_char(mo_date,'yyyymmdd') from movie_3
+
 select me_id, me_name, mo_name
 from movie_1 join movie_2
 using(me_id)
@@ -100,7 +102,8 @@ select mo_name, mo_limit, BookN from movie_3 join
 group by mo_name) using (mo_name) order by BookN desc
 
 
-
+select null, to_char(sysdate,'yyyy-mm-dd') from dual
+union all select mo_name, null from movie_3
 
 
 

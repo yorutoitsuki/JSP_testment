@@ -167,7 +167,18 @@ from subject_tbl_01 sub join register_tbl_01 reg
 using(subject_seq)) using(student_no) order by register_seq desc);
 
 
+-------------------------------------------------------
+/*
+ * REGEXP_SUBSTR('문자열', '[^구분자]+', 1, 가져올 순번, 'i')
+ * JAVA : String의 split("구분자")와 비슷 (예)String.split("@") 리턴타입 String[]
+ * i : 대소문자를 구분할 필요가 없다면 'i'옵션 사용을 지정. 구분하려면 생략
+ */
+select REGEXP_SUBSTR('A|B|C|D|E','[^|]+',1,3,'i') from dual;
 
+select REGEXP_SUBSTR('A@B@C','[^@]+',1,1) from dual;
+select REGEXP_SUBSTR('A@B@C','[^@]+',1,2) from dual;
+select REGEXP_SUBSTR('A@B@C','[^@]+',1,3) from dual;
 
-
+select REGEXP_SUBSTR('@b#B%','[^B]+',1,1) from dual;
+select REGEXP_SUBSTR('@b#B%','[^B]+',1,1, 'i') from dual;
 

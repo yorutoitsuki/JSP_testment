@@ -32,9 +32,6 @@ table, tr, th, td {
 	border-collapse: collapse;
 	text-align: center;
 }
-td {
-	text-align: left;
-}
 .insertStudentTable th {
 	width: 150px;
 }
@@ -87,11 +84,17 @@ span {
 	text-align: right;
 }
 
+.textRight {
+	text-align: right;
+}
 
+.insertPTable td {
+	text-align: left;
+}
 
-
-
-
+.textLeft {
+	text-align: left;
+}
 
 
 
