@@ -7,8 +7,7 @@
 	String sql2 = "select me_id, me_pass from MOVIE_1 where me_id = '" + ID + "'";
 	Statement stmt2 = con.createStatement();
 	ResultSet rs2 = stmt2.executeQuery(sql2);
-
-	boolean IdPwCheck = true;
+	
 	if(!rs2.next()){
 		%>
 		<script>
