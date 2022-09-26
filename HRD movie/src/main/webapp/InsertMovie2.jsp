@@ -12,20 +12,21 @@
 		sql  = "select mo_name from movie_3 order by mo_no";
 		rs = stmt.executeQuery(sql);
 		
-		//영화 이름, 날짜 조회하는 SQL
+		//영화 이름, 개봉 날짜 조회하는 SQL
 		String sql2 = "select mo_name, to_char(mo_date,'yyyymmdd') from movie_3";
 		Statement stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs2 = stmt2.executeQuery(sql2);
-		//영화 이름, 날짜 조회하는 SQL 종료
+		//영화 이름, 개봉 날짜 조회하는 SQL 종료
 	%>
 	<script type="text/javascript">
-		var MovieName = new Array();//영화 이름을 저장할 배열
-		var MovieDate = new Array();//영화 날짜를 저장할 배열
+		let MovieName = new Array();//영화 이름을 저장할 배열
+		let MovieDate = new Array();//영화 날짜를 저장할 배열
 		<%
 		//rs2 = 영화이름, 영화 날짜가 저장되어 있는 ResultSet
 		while(rs2.next()){
 			%>
 			//각각 영화이름, 날짜를 저장함,
+			//영화 이름 사이의 띄어쓰기(빈칸) 때문에 큰 따옴표("")로 묶어줘야함(=> String으로 처리)
 			MovieName.push("<%=rs2.getString(1)%>");
 			MovieDate.push("<%=rs2.getString(2)%>");
 			<%
@@ -33,9 +34,9 @@
 		%>
 		function checkDate() {//선택된 영화의 날짜와 입력된 날짜를 비교하는 함수
 			if(f.mo_name.value == ""){//날짜를 먼저 입력하면 비교할 대상이 없으니깐 return으로 종료
-				return;
+				checker.innerHTML = "영화를 선택하세요";
 			}else{
-				for(var i = 0; i < MovieName.length; i++){//영화의 이름과 select 된 것들을 대조함
+				for(let i = 0; i < MovieName.length; i++){//영화의 이름과 select 된 것들을 대조함
 					if(MovieName[i] == f.mo_name.value){//대조한 영화와 같은 이름이면
 						if(f.rm_date.value < MovieDate[i]){//입력된 날짜와, 영화의 개봉일과 비교
 							checker.innerHTML = "예매할 수 없습니다";
@@ -53,7 +54,7 @@
 				movid.innerHTML = "";//영화가 선택되지 않았으면 movid 아이디를 가진 태그(HTML)의 내용(inner)에 빈값을 입력
 				return;
 			}
-			for(var i = 0; i < MovieName.length; i++){
+			for(let i = 0; i < MovieName.length; i++){
 				if(MovieName[i] == f.mo_name.value){//같은 영화이름을 찾으면
 					movid.innerHTML = MovieDate[i];//movid 아이디를 가진 태그(HTML)의 내용(inner)에 개봉일을 입력
 					break;
@@ -62,7 +63,7 @@
 		}
 		
 		function checkMovieDate() {//영화예매 버튼 눌렀을때 확인하는 함수
-			const CanBook = document.getElementById("checker");
+			let CanBook = document.getElementById("checker");
 			if(CanBook.innerHTML == "예매할 수 없습니다"){
 				alert("예매할 수 없는 날짜입니다");
 				return f.rm_date.focus();
@@ -85,6 +86,7 @@
 			}
 			f.submit();
 		}
+		
 	</script>
 	<section>
 		<h1>영화 티켓 예매</h1>
