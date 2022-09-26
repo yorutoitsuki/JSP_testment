@@ -60,10 +60,35 @@
 				}
 			}
 		}
+		
+		function checkMovieDate() {//영화예매 버튼 눌렀을때 확인하는 함수
+			const CanBook = document.getElementById("checker");
+			if(CanBook.innerHTML == "예매할 수 없습니다"){
+				alert("예매할 수 없는 날짜입니다");
+				return f.rm_date.focus();
+			}
+			if(f.me_id.value == "") {
+				alert("회원 아이디를 입력해주세요");
+				return f.me_id.focus();
+			}
+			if(f.me_pass.value == ""){
+				alert("비밀번호를 입력해주세요");
+				return f.me_pass.focus();
+			}
+			if(f.mo_name.value == ""){
+				alert("영화제목을 선택하세요");
+				return f.mo_name.focus();
+			}
+			if(f.rm_date.value == ""){
+				alert("예매날짜를 입력해주세요");
+				return f.rm_date.focus();
+			}
+			f.submit();
+		}
 	</script>
 	<section>
 		<h1>영화 티켓 예매</h1>
-		<form action="InsertMoviePro.jsp" name="f" method="post">
+		<form action="InsertMoviePro3.jsp" name="f" method="post">
 			<table>
 				<tr>
 					<th>회원아이디</th>
@@ -86,7 +111,7 @@
 							<%
 						}
 						%>
-						</select>
+						</select><br>
 						<span id="movid" ></span>
 					</td>
 				</tr>
@@ -100,7 +125,7 @@
 				</tr>
 				<tr>
 					<th colspan="2">
-						<button type="button" onclick="checkMovie();">영화예매</button>
+						<button type="button" onclick="checkMovieDate();">영화예매</button>
 						<button type="button" onclick="location.href = 'SelectMember.jsp'">조회</button>
 					</th>
 				</tr>
