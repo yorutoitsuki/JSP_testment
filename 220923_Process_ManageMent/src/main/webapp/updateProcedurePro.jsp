@@ -2,44 +2,46 @@
     pageEncoding="UTF-8"%>
 <%@include file="dbcon.jsp" %>
 <%
-	String w_workno = request.getParameter("w_workno");
-	boolean PKmatch = false;
-	sql  = "select w_workno from tbl_process";
-	rs = stmt.executeQuery(sql);
-	while(rs.next()){
-		if(rs.getString(1).equals(w_workno)){
-			PKmatch = true;
-			break;
-		}
-	}
-	
-	if(PKmatch) {
+		
 		try {
-			sql  ="";
-			sql  = " update tbl_process set p_p1 = ?, p_p2 = ?, p_p3 = ?, p_p4 = ?, ";
-			sql += " p_p5 = ?, p_p6 = ?, w_lastdate = ?, w_lasttime = ? ";
-			sql += " where w_workno = " + w_workno;
-			ps = con.prepareStatement(sql);
+			sql = "select w_workno from tbl_process where w_workno = " + request.getParameter("w_workno");
+			rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				sql  ="";
+				sql  = " update tbl_process set p_p1 = ?, p_p2 = ?, p_p3 = ?, p_p4 = ?, ";
+				sql += " p_p5 = ?, p_p6 = ?, w_lastdate = ?, w_lasttime = ? ";
+				sql += " where w_workno = ?";
+				ps = con.prepareStatement(sql);
+				
+				ps.setString(1, request.getParameter("p_p1"));
+				ps.setString(2, request.getParameter("p_p2"));
+				ps.setString(3, request.getParameter("p_p3"));
+				ps.setString(4, request.getParameter("p_p4"));
+				ps.setString(5, request.getParameter("p_p5"));
+				ps.setString(6, request.getParameter("p_p6"));
+				ps.setString(7, request.getParameter("w_lastdate"));
+				ps.setString(8, request.getParameter("w_lasttime"));
+				ps.setString(8, request.getParameter("w_workno"));
+				
+				
+				
+				ps.executeUpdate();
+				
+				%>
+				<script type="text/javascript">
+					alert("공정상태가 정상적으로 수정 되었습니다!");
+					history.back();
+				</script>
+				<%
+			}else {
+				%>
+				<script type="text/javascript">
+					alert("등록되어 있지 않는 작업공정!");
+					history.back();
+				</script>
+				<%
+			}
 			
-			ps.setString(1, request.getParameter("p_p1"));
-			ps.setString(2, request.getParameter("p_p2"));
-			ps.setString(3, request.getParameter("p_p3"));
-			ps.setString(4, request.getParameter("p_p4"));
-			ps.setString(5, request.getParameter("p_p5"));
-			ps.setString(6, request.getParameter("p_p6"));
-			ps.setString(7, request.getParameter("w_lastdate"));
-			ps.setString(8, request.getParameter("w_lasttime"));
-			
-			
-			
-			ps.executeUpdate();
-			
-			%>
-			<script type="text/javascript">
-				alert("공정상태가 정상적으로 수정 되었습니다!");
-				history.back();
-			</script>
-			<%
 		}catch(Exception e) {
 			%>
 			<script type="text/javascript">
@@ -65,13 +67,7 @@
 				
 			}
 		}
-	}else {
-		%>
-		<script type="text/javascript">
-			alert("등록되어 있지 않는 작업공정!");
-			history.back();
-		</script>
-		<%
+		
 		try{
 			if(con != null) {
 				con.close();
@@ -88,7 +84,6 @@
 		}catch(Exception e) {
 			
 		}
-	}
 
 	
 %>
