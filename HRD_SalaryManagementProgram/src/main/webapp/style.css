@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 header, footer {
 	text-align: center;
 	background: black;
@@ -31,15 +33,8 @@ table, tr, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
 	text-align: center;
+	margin-bottom: 50px;
 }
-td {
-	text-align: left;
-}
-.insertStudentTable th {
-	width: 150px;
-}
-
-
 
 a, a:visited {
 	text-decoration: none;
@@ -65,13 +60,6 @@ td a, td a:visited {
 	text-align: center;
 }
 
-.selectTable td {
-	text-align: center;
-}
-.buttonTd {
-	text-align: center;
-}
-
 form div {
 	width : 20%;
 	display : flex;
@@ -83,15 +71,10 @@ form div {
 span {
 	width: 10%;
 }
-.selectMonthTable td{
-	text-align: right;
+
+.insertTable td {
+	text-align: left;
 }
-
-.memberSelectTable td {
-	text-align: center;
-}
-
-
 
 
 
