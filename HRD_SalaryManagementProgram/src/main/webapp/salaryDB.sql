@@ -95,12 +95,22 @@ from work_tbl_13 group by (substr(work_date,1,6),employee_no) order by employee_
 select * from work_tbl_13_2 order by work_date;
 
 select substr(work_date,1,6), 
-employee_no, sum(((24-(round(work_in_time/100)))+round(work_out_time/100))), 
-sum((substr(work_in_time,3)-substr(work_out_time,3)))
+employee_no, sum((24-round(work_in_time/100)+round(work_out_time/100))),
+sum((substr(work_out_time,3)-substr(work_in_time,3)))
 from work_tbl_13_2 group by (substr(work_date,1,6),employee_no) order by employee_no desc
 
 
-
+select substr(work_date,1,6), 
+employee_no,
+sum(
+case
+when work_in_time > 1300 then
+((24-round(work_in_time/100)+round(work_out_time/100)))
+else ((round(work_out_time/100)-round(work_in_time/100)))
+end
+),
+sum((substr(work_out_time,3)-substr(work_in_time,3)))
+from work_tbl_13_2 group by (substr(work_date,1,6),employee_no) order by employee_no desc
 
 
 
