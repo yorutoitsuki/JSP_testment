@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<th>입사일자</th>
-				<td><input type="text" size="20" name="hire_date" maxlength="10" value="<%=rs.getString(3)%>">예)201231</td>
+				<td><input type="text" size="20" name="hire_date" maxlength="10" value="<%=rs.getString(3)%>">예)2018-12-31</td>
 			</tr>
 			<tr>
 				<th>사원상태</th>
