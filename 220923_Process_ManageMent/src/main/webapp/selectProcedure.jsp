@@ -7,9 +7,9 @@
 <body>
 	<%@include file="header.jsp" %>
 	<%
-		sql  = " select w_workno, P_code, p_name, p_p1, p_p2, p_p3, p_p4, p_p5, p_p6, ";
-		sql += " w_lastdate, w_lasttime from tbl_worklist join tbl_process using(w_workno) ";
-		sql += " join tbl_product using(p_code) order by w_workno";
+		sql  = " select w_workno, nvl(P_code,'Waiting'), nvl(p_name,'Order'), p_p1, p_p2, p_p3, p_p4, p_p5, p_p6, ";
+		sql += " w_lastdate, w_lasttime from tbl_worklist right outer join tbl_process using(w_workno)  ";
+		sql += " left outer join tbl_product using(p_code) order by w_workno";
 		rs = stmt.executeQuery(sql);
 		
 	%>
