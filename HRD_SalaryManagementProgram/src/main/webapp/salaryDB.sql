@@ -100,17 +100,19 @@ sum((substr(work_out_time,3)-substr(work_in_time,3)))
 from work_tbl_13_2 group by (substr(work_date,1,6),employee_no) order by employee_no desc
 
 
-select substr(work_date,1,6), 
-employee_no,
-sum(
-case
-when work_in_time > 1300 then
-((24-round(work_in_time/100)+round(work_out_time/100)))
-else ((round(work_out_time/100)-round(work_in_time/100)))
-end
-),
+select substr(work_date,1,6), employee_no, 
+--case로 선별된 시간들을 sum 하겠다.
+--
+--sum 함수 내에 case가 존재함
+sum(case when work_in_time > 1300 then --출근 시간이 13시를 넘을 경우, 저녁출근
+((24-round(work_in_time/100)+round(work_out_time/100))) 
+--24시 빼기 출근시간 = 밤에 일한 시간, 그리고 퇴근시간은 0시에서 퇴근시간 까지 일한것과 같음 
+--고로 24시 - 출근시간 + 퇴근시간
+else ((round(work_out_time/100)-round(work_in_time/100))) end), --출근시간이 13시를 넘지 않은 경우, 아침출근
+--분 단위를 처리하는 sum
 sum((substr(work_out_time,3)-substr(work_in_time,3)))
-from work_tbl_13_2 group by (substr(work_date,1,6),employee_no) order by employee_no desc
+from work_tbl_13_2 group by (substr(work_date,1,6),employee_no) 
+order by employee_no desc
 
 
 
