@@ -8,7 +8,7 @@
 	<%@include file="header.jsp" %>
 	<%
 		sql  = " select w_workno, nvl(P_code,'Waiting'), nvl(p_name,'Order'), p_p1, p_p2, p_p3, p_p4, p_p5, p_p6, ";
-		sql += " w_lastdate, w_lasttime from tbl_worklist right outer join tbl_process using(w_workno)  ";
+		sql += " to_char(to_date(w_lastdate,'yyyy-mm-dd'),'yyyy-mm-dd'), w_lasttime from tbl_worklist right outer join tbl_process using(w_workno)  ";
 		sql += " left outer join tbl_product using(p_code) order by w_workno";
 		rs = stmt.executeQuery(sql);
 		
@@ -36,13 +36,6 @@
 				w_workno += "-";
 				w_workno += rs.getString(1).substring(4);
 				
-				String w_lastdate = "";
-				w_lastdate += rs.getString(10).substring(0,5);
-				w_lastdate += "-";
-				w_lastdate += rs.getString(10).substring(5, 7);
-				w_lastdate += "-";
-				w_lastdate += rs.getString(10).substring(7);
-				
 				String w_lasttime = "";
 				w_lasttime += rs.getString(11).substring(0,2);
 				w_lasttime += ":";
@@ -58,7 +51,7 @@
 					<td><%=rs.getString(7).equals("Y")?rs.getString(7):"~"%></td>
 					<td><%=rs.getString(8).equals("Y")?rs.getString(8):"~"%></td>
 					<td><%=rs.getString(9).equals("Y")?rs.getString(9):"~"%></td>
-					<td><%=w_lastdate%></td>
+					<td><%=rs.getString(10)%></td>
 					<td><%=w_lasttime%></td>
 					
 				</tr>
