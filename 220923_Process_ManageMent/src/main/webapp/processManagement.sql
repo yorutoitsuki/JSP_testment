@@ -81,13 +81,14 @@ from tbl_product join tbl_worklist using(P_code) order by w_workno;
 
 --14P SQL 작업공정조회
 select w_workno, P_code, p_name, p_p1, p_p2, p_p3, p_p4, p_p5, p_p6,
-w_lastdate, w_lasttime from tbl_worklist join tbl_process using(w_workno) 
+to_char(to_date(w_lastdate,'yyyy-mm-dd'),'yyyy-mm-dd'), w_lasttime 
+from tbl_worklist join tbl_process using(w_workno) 
 join tbl_product using(p_code) order by w_workno
 
 
 --14P SQL 작업공정조회
 select w_workno, nvl(P_code,'Waiting'), nvl(p_name,'Order'), p_p1, p_p2, p_p3, p_p4, p_p5, p_p6,
-w_lastdate, w_lasttime from tbl_worklist right outer join tbl_process using(w_workno) 
+to_char(to_date(w_lastdate,'yyyy-mm-dd'),'yyyy-mm-dd'), w_lasttime from tbl_worklist right outer join tbl_process using(w_workno) 
 left outer join tbl_product using(p_code) order by w_workno
 
 
