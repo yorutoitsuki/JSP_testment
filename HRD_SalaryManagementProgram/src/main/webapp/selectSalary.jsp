@@ -44,6 +44,8 @@
 			<th>급여</th>
 		</tr>
 		<%
+		//아침 출근과 저녁 출근이 혼재되어 있는 상태, 분류가 필요함
+		//salaryDB.sql 파일의 103번 라인에 설명 있음
 		sql  = " select substr(work_date,1,6), employee_no,   ";
 		sql += " sum(case when work_in_time > 1300 then ";
 		sql += " ((24-round(work_in_time/100)+round(work_out_time/100)))";
