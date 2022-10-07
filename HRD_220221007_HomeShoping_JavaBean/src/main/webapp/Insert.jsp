@@ -7,16 +7,12 @@
 </head>
 <script type="text/javascript" src = "javaScript.js"></script>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="header.jsp"%>
+	<%@page import="member.ShoppingDAO"%>
+	<%@page import="member.MemberBeans"%>
 	<%
-	sql = "select NVL(max(custno),0)+1, to_char(sysdate,'yyyymmdd') from member_tbl_02";
-	rs = stmt.executeQuery(sql);
-	String custno = "";
-	String joindate = "";
-	if(rs.next()){
-		custno = rs.getString(1);
-		joindate = rs.getString(2);
-	}
+	ShoppingDAO dao = new ShoppingDAO();
+	MemberBeans beans = dao.getMaxCustnoJoindate();
 	%>
 
 	<section>
@@ -27,7 +23,7 @@
 			<table>
 				<tr>
 					<th>회원번호 (자동발생)</th>
-					<td><input type="text" value="<%=custno %>" name="custno" maxlength="6" readonly="readonly"></td>
+					<td><input type="text" value="<%=beans.getCustno() %>" name="custno" maxlength="6" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<th>회원성명</th>
@@ -43,7 +39,7 @@
 				</tr>
 				<tr>
 					<th>가입일자</th>
-					<td><input type="text" value="<%=joindate %>" size="10" name="joindate" readonly="readonly"></td>
+					<td><input type="text" value="<%=beans.getJoindate() %>" size="10" name="joindate" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<th>고객등급[A:VIP,B:일반,C:직원]</th>
@@ -57,13 +53,13 @@
 					<td colspan="2" class="buttonTd">
 						<button type="button" onclick="check();">등록</button>
 						&nbsp;
-						<button type="button" onclick="location.href='Select.jsp';">조회</button>
+						<button type="button" onclick="location.href='select.jsp';">조회</button>
 					</td>
 				</tr>
 				
 			</table>
 		</form>
 	</section>
-	<%@include file="Footer.jsp"%>
+	<%@include file="footer.jsp"%>
 </body>
 </html>
