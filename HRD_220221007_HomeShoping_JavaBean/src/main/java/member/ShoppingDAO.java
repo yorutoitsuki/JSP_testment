@@ -105,7 +105,49 @@ public class ShoppingDAO {
 	
 	//2. 회원등록
 	public boolean insertMember(MemberBeans beans) {
-		
-		return false;
+		try {
+			//1. DB 연결
+			con = getConnection();
+			
+			//2.SQL
+			sql  = " insert into member_tbl_02 values(?,?,?,?,?,?,?)";
+			
+			//3. 실행
+			ps = con.prepareStatement(sql);
+			ps.setString(1, beans.getCustno());
+			ps.setString(2, beans.getCustname());
+			ps.setString(3, beans.getPhone());
+			ps.setString(4, beans.getAddress());
+			ps.setString(5, beans.getJoindate());
+			ps.setString(6, beans.getGrade());
+			ps.setString(7, beans.getCity());
+			int succed = ps.executeUpdate();
+			
+			//4. 결과처리
+			if(succed == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("getMaxCustnoJoindate() 에러 : " + e);
+			return false;
+		} finally {
+			//5. 연결해제
+			try {
+				if(con != null) {
+					con.close();
+				}
+				if(ps != null) {
+					ps.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				
+			}
+		}
 	}
 }
