@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="buttonTd">
-						<button type="button" onclick="check();">등록</button>
+						<button type="button" onclick="insertCheck();">등록</button>
 						&nbsp;
 						<button type="button" onclick="location.href='select.jsp';">조회</button>
 					</td>

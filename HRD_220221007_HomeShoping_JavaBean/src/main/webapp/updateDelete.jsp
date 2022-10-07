@@ -51,15 +51,15 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="buttonTd">
-						<button type="button" onclick="check();">수정</button>
+						<button type="button" onclick="checkUpdate();">수정</button>
 						&nbsp;
 						<button type="button" onclick="location.href='select.jsp'">조회</button>
 						&nbsp;
 						<button type="button" onclick="goDelete(this.form);" >삭제</button>
 						&nbsp;
-						<button type="button" name="btn" id="update" onclick="check2(this.id);">수정2</button>
+						<button type="button" name="btn" id="update" onclick="checkSelecter(this.id);">수정2</button>
 						&nbsp;
-						<button type="button" name="btn" id="delete" onclick="check2(this.id);">삭제2</button>
+						<button type="button" name="btn" id="delete" onclick="checkSelecter(this.id);">삭제2</button>
 						<input type="hidden" name = "selecter" value="">
 					</td>
 				</tr>
