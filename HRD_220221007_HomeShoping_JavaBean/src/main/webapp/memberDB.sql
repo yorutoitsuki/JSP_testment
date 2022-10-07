@@ -25,7 +25,9 @@ create table member_tbl_02 (
 	city char(2)
 );
 
-select NVL(max(custno),0)+1, to_char(sysdate,'yyyymmdd') from member_tbl_02;
+select NVL(max(custno),0)+1 as custno, 
+to_char(sysdate,'yyyymmdd') as joindate
+from member_tbl_02;
 
 select custno, custname, phone, address, joindate, grade, city, to_char(joindate,'yyyy-mm-dd') from member_tbl_02;
 
@@ -60,6 +62,7 @@ insert into money_tbl_02 values(100004,20160009,600,1,600,'A006','20160104');
 insert into money_tbl_02 values(100004,20160010,3000,1,3000,'A007','20160106');
 
 select * from money_tbl_02;
+select * from member_tbl_02
 
 select custno, sum(price)
 from money_tbl_02
