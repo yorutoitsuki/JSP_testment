@@ -15,7 +15,20 @@ request.setCharacterEncoding("UTF-8");
 <%
 ShoppingDAO dao = new ShoppingDAO();
 if(dao.insertMember(beans)) {
-	
+	%>
+	<script type="text/javascript">
+	alert("회원등록이 완료되었습니다");
+	location.href = "insert.jsp";
+	</script>
+	<%
+}
+else {
+	%>
+	<script type="text/javascript">
+	alert("회원등록이 실패했습니다.");
+	history.back();
+	</script>
+	<%
 }
 %>
 
