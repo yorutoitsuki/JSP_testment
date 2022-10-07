@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="member.MemberBeans"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="member.ShoppingDAO"%>
@@ -24,9 +25,20 @@
 			</tr>
 			<%
 			ShoppingDAO dao = new ShoppingDAO();
-			ArrayList<MemberBeans> members =  dao.getMembers();
+			List<MemberBeans> members =  dao.getMembers();
 			for(int i = 0; i < members.size(); i++){
-				
+				MemberBeans beans = members.get(i);
+				%>
+				<tr>
+					<td><a href="updateDelete.jsp?custno='<%=members.get(i).getCustno()%>'"><%=members.get(i).getCustno() %></a></td>
+					<td><%=beans.getCustname() %></td>
+					<td><%=beans.getPhone() %></td>
+					<td><%=beans.getAddress() %></td>
+					<td><%=beans.getJoindate() %></td>
+					<td><%=beans.getGrade() %></td>
+					<td><%=beans.getCity() %></td>
+				</tr>
+				<%
 			}
 			%>
 		</table>
