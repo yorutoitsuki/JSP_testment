@@ -119,7 +119,7 @@ function check2(btnId) {
 		}
 	}
 	
-	f.action = 'UpdateDeletePro.jsp';
+	f.action = "updateDeletePro.jsp";
 	f.submit();
 	return true;
 }
