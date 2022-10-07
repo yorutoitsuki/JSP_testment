@@ -160,21 +160,21 @@ public class ShoppingDAO {
 			con = getConnection();
 			sql  = " select custno, custname, phone, address,  ";
 			sql += " to_char(joindate,'yyyy-mm-dd') as joindate,  ";
-			sql += " decode(grade,'A','VIP','B','일반','C','직원') as grade, ";
-			sql += " city from member_tbl_02";
+			sql += " decode(grade,'A','VIP','B','일반','C','직원') as grade, city ";
+			sql += " from member_tbl_02";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
 				MemberBeans beans = new MemberBeans();
 				
-				beans.setCustno(rs.getString("custno"));
-				beans.setCustname(rs.getString("custname"));
-				beans.setPhone(rs.getString("phone"));
-				beans.setAddress(rs.getString("address"));
-				beans.setJoindate(rs.getString("joindate"));
-				beans.setGrade(rs.getString("grade"));
-				beans.setCity("city");
+				beans.setCustno(rs.getString("CUSTNO"));
+				beans.setCustname(rs.getString("CUSTNAME"));
+				beans.setPhone(rs.getString("PHONE"));
+				beans.setAddress(rs.getString("ADDRESS"));
+				beans.setJoindate(rs.getString("JOINDATE"));
+				beans.setGrade(rs.getString("GRADE"));
+				beans.setCity(rs.getString("CITY"));
 				
 				list.add(beans);
 			}
@@ -199,5 +199,173 @@ public class ShoppingDAO {
 		}
 		return list;
 		
+	}
+	public MemberBeans getMember(String custno) {
+		MemberBeans beans = new MemberBeans();
+		try {
+			con = getConnection();
+			sql  = " select custno, custname, phone, address, ";
+			sql += " to_char(joindate,'yyyy-mm-dd') as joindate, ";
+			sql += " grade, city from member_tbl_02 ";
+			sql += " where custno = " + custno;
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				beans.setCustno(rs.getString("CUSTNO"));
+				beans.setCustname(rs.getString("CUSTNAME"));
+				beans.setPhone(rs.getString("PHONE"));
+				beans.setAddress(rs.getString("ADDRESS"));
+				beans.setJoindate(rs.getString("JOINDATE"));
+				beans.setGrade(rs.getString("GRADE"));
+				beans.setCity(rs.getString("CITY"));
+			}
+		} catch (Exception e) {
+			System.out.println("getMember() 에러 : " + e);
+		}finally {
+			try {
+				if(con != null) {
+					con.close();
+				}
+				if(ps != null) {
+					ps.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				
+			}
+		}
+		return beans;
+	}
+	
+	public boolean updateMember(MemberBeans beans) {
+		try {
+			//1. DB 연결
+			con = getConnection();
+			
+			//2.SQL
+			sql  = " update MEMBER_TBL_02";
+			sql += " set custname = ?,";
+			sql += " phone = ?,";
+			sql += " address = ?,";
+			sql += " grade = ?,";
+			sql += " city = ?";
+			sql += " where custno = ?";
+			//3. 실행
+			ps = con.prepareStatement(sql);
+			ps.setString(1, beans.getCustname());
+			ps.setString(2, beans.getPhone());
+			ps.setString(3, beans.getAddress());
+			ps.setString(4, beans.getGrade());
+			ps.setString(5, beans.getCity());
+			ps.setString(6, beans.getCustno());
+			
+			int succed = ps.executeUpdate();
+			
+			//4. 결과처리
+			if(succed == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("getMaxCustnoJoindate() 에러 : " + e);
+			return false;
+		} finally {
+			//5. 연결해제
+			try {
+				if(con != null) {
+					con.close();
+				}
+				if(ps != null) {
+					ps.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				
+			}
+		}
+	}
+	public ArrayList<SalesBeans> getMembersBuy() {
+		ArrayList<SalesBeans> list =new ArrayList<SalesBeans>();
+		
+		try {
+			con = getConnection();
+			sql  = " select custno, custname,  decode(grade, 'A','VIP','B','일반','C','직원') as grade,  ";
+			sql += " hap from member_tbl_02  join (	select custno, sum(price) as hap ";
+			sql += " 		from money_tbl_02 group by (custno)) using (custno) ";
+			sql += " order by hap desc ";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				SalesBeans beans = new SalesBeans();
+				
+				beans.setCustno(rs.getString("CUSTNO"));
+				beans.setCustname(rs.getString("CUSTNAME"));
+				beans.setGrade(rs.getString("grade"));
+				beans.setTotalPrice(rs.getString("hap"));
+				
+				list.add(beans);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("getMembersBuy() 에러 : " + e);
+		} finally {
+			//5. 연결해제
+			try {
+				if(con != null) {
+					con.close();
+				}
+				if(ps != null) {
+					ps.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				
+			}
+		}
+		return list;
+		
+	}
+	
+	public boolean deleteMember(String custno) {
+		try {
+			con = getConnection();
+			sql  = "delete from MEMBER_TBL_02";
+			sql += " where custno = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, custno);
+			if(ps.executeUpdate() == 1) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("deleteMember()오류" + e);
+		} finally {
+			//5. 연결해제
+			try {
+				if(con != null) {
+					con.close();
+				}
+				if(ps != null) {
+					ps.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				
+			}
+		}
+		return false;
 	}
 }
