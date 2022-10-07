@@ -47,6 +47,7 @@ function check() {
 		alert("도시코드가 없습니다");
 		return f.custno.focus();
 	}
+	f.action = 'updatePro.jsp'
 	f.submit();
 }
  
@@ -118,10 +119,7 @@ function check2(btnId) {
 			return false;
 		}
 	}
-	
-	f.action = "updateDeletePro.jsp";
 	f.submit();
-	return true;
 }
  
  
