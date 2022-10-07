@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="header.jsp"%>
 	<%
 	sql = "select to_char(joindate,'yyyy-mm-dd'), a.* from MEMBER_TBL_02 a";
 	rs = stmt.executeQuery(sql);
@@ -43,6 +43,6 @@
 	</section>
 
 
-	<%@include file="Footer.jsp"%>
+	<%@include file="footer.jsp"%>
 </body>
 </html>
