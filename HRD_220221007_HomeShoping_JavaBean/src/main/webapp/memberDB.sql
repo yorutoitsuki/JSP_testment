@@ -35,6 +35,11 @@ to_char(joindate,'yyyy-mm-dd') as joindate,
 decode(grade,'A','VIP','B','일반','C','직원') as grade, 
 city from member_tbl_02;
 
+select custno, custname, phone, address, 
+to_char(joindate,'yyyy-mm-dd') as joindate,
+grade, city from member_tbl_02
+where custno = '100001';
+
 insert into member_tbl_02 values(100001,'김행복','010-1111-2222','서울 동대문구 휘경1동','20151202','A','01');
 insert into member_tbl_02 values(100002,'이축복','010-1111-3333','서울 동대문구 휘경2동','20151206','B','01');
 insert into member_tbl_02 values(100003,'장믿음','010-1111-4444','울릉군 울릉읍 독도1리','20151001','B','30');
@@ -76,12 +81,9 @@ select custno, sum(price) as hap
 from money_tbl_02
 group by (custno);
 
-select custno, custname, grade, hap
-from member_tbl_02 
-join (	select custno, sum(price) as hap
-		from money_tbl_02
-		group by (custno))
-using (custno)
+select custno, custname,  decode(grade, 'A','VIP','B','일반','C','직원') as grade, 
+hap from member_tbl_02  join (	select custno, sum(price) as hap
+		from money_tbl_02 group by (custno)) using (custno)
 order by hap desc;
 
 select * from member_tbl_02;
