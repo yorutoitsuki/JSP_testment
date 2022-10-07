@@ -1,3 +1,4 @@
+<%@page import="member.MemberBeans"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="member.ShoppingDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -24,6 +25,9 @@
 			<%
 			ShoppingDAO dao = new ShoppingDAO();
 			ArrayList<MemberBeans> members =  dao.getMembers();
+			for(int i = 0; i < members.size(); i++){
+				
+			}
 			%>
 		</table>
 	</section>
