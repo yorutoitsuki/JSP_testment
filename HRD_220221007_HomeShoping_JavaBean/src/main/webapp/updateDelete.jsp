@@ -19,7 +19,7 @@
 		<div>
 			<h2>홈쇼핑 회원 수정</h2>
 		</div>
-		<form action="updatePro.jsp" name="f" method="post">
+		<form action="updateDeletePro.jsp" name="f" method="post">
 			<table>
 				<tr>
 					<th>회원번호</th>
