@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="header.jsp"%>
 	<%
 	sql  = " select custno, custname, grade, hap";
 	sql +=" from member_tbl_02 ";
@@ -55,6 +55,6 @@
 	</section>
 
 
-	<%@include file="Footer.jsp"%>
+	<%@include file="footer.jsp"%>
 </body>
 </html>
