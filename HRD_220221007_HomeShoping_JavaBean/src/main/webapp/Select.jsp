@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="member.ShoppingDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,11 +9,6 @@
 </head>
 <body>
 	<%@include file="header.jsp"%>
-	<%
-	sql = "select to_char(joindate,'yyyy-mm-dd'), a.* from MEMBER_TBL_02 a";
-	rs = stmt.executeQuery(sql);
-	%>
-
 	<section>
 		<h2>회원 목록 조회/수정</h2>
 		<table class="selectTable">
@@ -25,19 +22,8 @@
 				<th>거주지역</th>
 			</tr>
 			<%
-			while (rs.next()) {
-			%>
-			<tr>
-				<td><a href="updateDelete.jsp?custno=<%=rs.getString(2)%>"><%=rs.getString(2)%></a> </td>
-				<td><%=rs.getString(3)%></td>
-				<td><%=rs.getString(4)%></td>
-				<td><%=rs.getString(5)%></td>
-				<td><%=rs.getString(1)%></td>
-				<td><%=rs.getString(7)%></td>
-				<td><%=rs.getString(8)%></td>
-			</tr>
-			<%
-			}
+			ShoppingDAO dao = new ShoppingDAO();
+			ArrayList<MemberBeans> members =  dao.getMembers();
 			%>
 		</table>
 	</section>
