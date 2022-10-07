@@ -10,6 +10,8 @@ package member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -149,5 +151,56 @@ public class ShoppingDAO {
 				
 			}
 		}
+	}
+	
+	public ArrayList<MemberBeans> getMembers() {
+		ArrayList<MemberBeans> list =new ArrayList<MemberBeans>();
+		
+		try {
+			con = getConnection();
+			sql  = " select custno, custname, phone, address,  ";
+			sql += " to_char(joindate,'yyyy-mm-dd') as joindate,  ";
+			sql += " decode(grade,'A','VIP','B','일반','C','직원') as grade, ";
+			sql += " city from member_tbl_02";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				MemberBeans beans = new MemberBeans();
+				
+				beans.setCustno(rs.getString("custno"));
+				beans.setCustname(rs.getString("custname"));
+				beans.setPhone(rs.getString("phone"));
+				beans.setAddress(rs.getString("address"));
+				beans.setJoindate(rs.getString("joindate"));
+				beans.setGrade(rs.getString("grade"));
+				beans.setCity("city");
+				
+				list.add(beans);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("getMembers() 에러 : " + e);
+		} finally {
+			//5. 연결해제
+			try {
+				if(con != null) {
+					con.close();
+				}
+				if(ps != null) {
+					ps.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				
+			}
+		}
+		
+		
+		
+		return list;
+		
 	}
 }
