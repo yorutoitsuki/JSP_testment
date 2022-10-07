@@ -11,7 +11,7 @@
 </body>
 </html>
 
-<%
+<%-- <%
 	try{
 		if(con != null) {
 			con.close();
@@ -28,7 +28,7 @@
 	}catch(Exception e) {
 		
 	}
-%>
+%> --%>
 
 
 
