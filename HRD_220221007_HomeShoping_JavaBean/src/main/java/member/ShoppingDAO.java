@@ -197,9 +197,6 @@ public class ShoppingDAO {
 				
 			}
 		}
-		
-		
-		
 		return list;
 		
 	}
