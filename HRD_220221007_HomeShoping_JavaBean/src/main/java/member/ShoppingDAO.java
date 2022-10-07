@@ -102,4 +102,10 @@ public class ShoppingDAO {
 		}
 		return beans;
 	}
+	
+	//2. 회원등록
+	public boolean insertMember(MemberBeans beans) {
+		
+		return false;
+	}
 }
