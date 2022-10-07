@@ -1,3 +1,6 @@
+<%@page import="member.SalesBeans"%>
+<%@page import="java.util.List"%>
+<%@page import="member.ShoppingDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,14 +11,9 @@
 <body>
 	<%@include file="header.jsp"%>
 	<%
-	sql  = " select custno, custname, grade, hap";
-	sql +=" from member_tbl_02 ";
-	sql +=" join (	select custno, sum(price) as hap";
-	sql +=" 		from money_tbl_02";
-	sql +=" 		group by (custno))";
-	sql +=" using (custno)";
-	sql +=" order by hap desc";
-	rs = stmt.executeQuery(sql);
+	ShoppingDAO dao = new ShoppingDAO();
+	List<SalesBeans> list = dao.getMembersBuy();
+	
 	%>
 
 	<section>
@@ -28,25 +26,14 @@
 				<th>매출</th>
 			</tr>
 			<%
-			while (rs.next()) {
-				String grade = "";
-				switch(rs.getString("grade")){
-				case "A":
-					grade = "VIP";
-					break;
-				case "B":
-					grade = "일반";
-					break;
-				case "C":
-					grade = "직원";
-					break;
-				}
+			for(int i = 0; i < list.size(); i ++) {
+				SalesBeans temp = list.get(i);
 			%>
 			<tr>
-				<td><%=rs.getString(1)%></td>
-				<td><%=rs.getString(2)%></td>
-				<td><%=grade%></td>
-				<td><%=rs.getString(3)%></td>
+				<td><%=temp.getCustno()%></td>
+				<td><%=temp.getCustname()%></td>
+				<td><%=temp.getGrade()%></td>
+				<td><%=temp.getTotalPrice()%></td>
 			</tr>
 			<%
 			}
