@@ -7,7 +7,7 @@
 </head>
 <script type="text/javascript" src = "javaScript.js"></script>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="header.jsp"%>
 	<%
 	String custno = request.getParameter("custno");
 	sql = "select to_char(joindate,'yyyy-mm-dd'),a.* from member_tbl_02 a where custno = " + custno;
@@ -81,6 +81,6 @@
 			</table>
 		</form>
 	</section>
-	<%@include file="Footer.jsp"%>
+	<%@include file="footer.jsp"%>
 </body>
 </html>
