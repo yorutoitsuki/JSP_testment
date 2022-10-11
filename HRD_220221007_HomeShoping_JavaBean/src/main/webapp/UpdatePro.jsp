@@ -7,6 +7,7 @@
 <jsp:useBean id="beans" class="member.MemberBeans"></jsp:useBean>
 <jsp:setProperty property="*" name="beans"/>
 <%
+request.setCharacterEncoding("UTF-8");
 ShoppingDAO dao = new ShoppingDAO();
 if(dao.updateMember(beans)){
 	%>
