@@ -33,7 +33,8 @@ select custno, custname, phone, address, to_char(joindate,'yyyy-mm-dd'), grade, 
 select custno, custname, phone, address, 
 to_char(joindate,'yyyy-mm-dd') as joindate, 
 decode(grade,'A','VIP','B','일반','C','직원') as grade, 
-city from member_tbl_02;
+city from member_tbl_02
+order by custno;
 
 select custno, custname, phone, address, 
 to_char(joindate,'yyyy-mm-dd') as joindate,
