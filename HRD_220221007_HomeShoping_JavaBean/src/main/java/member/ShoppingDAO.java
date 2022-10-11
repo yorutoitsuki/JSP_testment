@@ -161,7 +161,7 @@ public class ShoppingDAO {
 			sql  = " select custno, custname, phone, address,  ";
 			sql += " to_char(joindate,'yyyy-mm-dd') as joindate,  ";
 			sql += " decode(grade,'A','VIP','B','일반','C','직원') as grade, city ";
-			sql += " from member_tbl_02";
+			sql += " from member_tbl_02 order by custno";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
