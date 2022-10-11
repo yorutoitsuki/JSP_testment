@@ -4,9 +4,11 @@
 <!DOCTYPE html>
 <%-- <%@include file="db_conn.jsp" %> --%>
 <%
+	request.setCharacterEncoding("UTF-8");
 	String button = request.getParameter("selecter");
 	ShoppingDAO dao = new ShoppingDAO();
 	if(request.getParameter("selecter") == null){
+		//input hidden 이 제대로 동작하는지 확인하러 만든것, 무시하면 됩니다.
 		%>
 			<script>
 				alert("에러!");
