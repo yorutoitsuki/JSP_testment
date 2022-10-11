@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <%-- <%@include file="db_conn.jsp" %> --%>
 <%
+request.setCharacterEncoding("UTF-8");
 ShoppingDAO dao = new ShoppingDAO();
 if(dao.deleteMember(request.getParameter("custno"))){
 	%>
