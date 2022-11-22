@@ -11,10 +11,29 @@ a{
 	color: white;
 	margin: auto 10px;
 }
+
+footer {
+	background-color: black;
+	color: white;
+}
+
 body {
 	background-color: gray;
 }
 
 h1, footer{
 	text-align: center;
+}
+
+form,table {
+	margin: 20px auto;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+table {
+	width: 80%;
 }

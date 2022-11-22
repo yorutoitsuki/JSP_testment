@@ -12,7 +12,7 @@
 	<header>
 		<h1>헬스클럽관리 프로그램</h1>
 		<nav>
-			<a href="">회원등록</a>
+			<a href="insertMember.jsp">회원등록</a>
 			<a href="">회원목록/트레이너신청</a>
 			<a href="">트레이너목록</a>
 			<a href="index.jsp">홈으로</a>

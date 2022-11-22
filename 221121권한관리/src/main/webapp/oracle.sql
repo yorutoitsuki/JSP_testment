@@ -65,7 +65,7 @@ start with 10001
 increment by 1
 minvalue 10001;
 
-sequence user_tbl_08_seq.nextval
+user_tbl_08_seq.currval from 
 
 insert into usert_auth_tbl_08 values('10001','12');
 insert into usert_auth_tbl_08 values('10003','13');
