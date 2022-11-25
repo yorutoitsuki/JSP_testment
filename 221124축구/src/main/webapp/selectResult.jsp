@@ -9,7 +9,7 @@ sql += "from record_tbl group by match_no order by match_no asc ";
 rs = sm.executeQuery(sql);
 
 sql = "select player_no, player_name, player_score from(select player_no, dense_rank()  ";
-sql += "over(order by player_score desc, yellow_card asc, red_card asc) as rank, ";
+sql += "over(order by player_score desc, red_card asc, yellow_card asc) as rank, ";
 sql += "player_score from (select player_no, sum(player_score) as player_score, ";
 sql += "sum(yellow_card) as yellow_card, sum(red_card) as red_card ";
 sql += "from record_tbl group by player_no)) join player_tbl ";
