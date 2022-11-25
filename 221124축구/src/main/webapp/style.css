@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+header {
+	background-color: gray;
+}
+nav{
+	background-color: black;
+}
+a{
+	text-decoration: none;
+	color: white;
+	margin: auto 10px;
+}
+
+footer {
+	background-color: black;
+	color: white;
+}
+
+body {
+	background-color: gray;
+}
+
+h1, footer{
+	text-align: center;
+}
+
+form,table {
+	margin: 20px auto;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.toCenter {
+	text-align: center;
+	font-size: larger;
+}
+
+table {
+	width: 80%;
+}
