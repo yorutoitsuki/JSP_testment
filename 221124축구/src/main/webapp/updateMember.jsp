@@ -51,7 +51,7 @@ String email[] = rs.getString("player_email").split("@");
 						<select name="player_email2">
 							<option value="naver.com" <%if(email.length == 2&&email[1].equals("naver.com")){%>selected="selected"<%} %>>naver.com</option>
 							<option value="daum.net" <%if(email.length == 2&&email[1].equals("daum.net")){%>selected="selected"<%} %>>daum.net</option>
-							<option value="gmail.com" <%if(email.length == 2&&email[1].equals("gmail.com")){%>selected="selected"<%} %>>gmail.com</option>
+							<option value="gmail.com" <%=email.length == 2&&email[1].equals("gmail.com")?"selected":"" %>>gmail.com</option>
 						</select>
 					</td>
 				</tr>
