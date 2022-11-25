@@ -76,11 +76,15 @@ sum(yellow_card) as yellow_card, sum(red_card) as red_card
 from record_tbl
 group by player_no)
 
-select player_no, player_name, player_score from(select player_no, dense_rank() 
-over(order by player_score desc, yellow_card asc, red_card asc) as rank,
-player_score from (select player_no, sum(player_score) as player_score,
-sum(yellow_card) as yellow_card, sum(red_card) as red_card
-from record_tbl group by player_no)) join player_tbl
+select player_no, player_name, player_score 
+from(select player_no, dense_rank() 
+	 over(order by player_score desc, red_card asc, yellow_card asc) as rank,
+	 player_score 
+	 from (	select player_no, sum(player_score) as player_score,
+			sum(yellow_card) as yellow_card, sum(red_card) as red_card
+			from record_tbl group by player_no)
+	 ) 
+	 join player_tbl
 using(player_no) where rank = 1 order by player_no;
 
 insert into record_tbl values(16,10004,113,90,1,1,1);
